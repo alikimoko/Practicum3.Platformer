@@ -46,6 +46,7 @@ namespace GameManagement
         }
 
         public bool MoveVertical { get { return moveVertical; }}
+        public Rectangle MovingRectangle { get { return movingRectangle; }}
         public Vector2 Position { get { return position; }
             set
             {
@@ -63,7 +64,34 @@ namespace GameManagement
             }
         }
 
-        
+        public void moveCamera(Vector2 playerPosition)
+        {
+            Vector2 tempVector = new Vector2(0,0);
+            bool change = false;
+            if (playerPosition.X < movingRectangle.X)
+            {
+               tempVector.X = (position.X - (playerPosition.X - movingRectangle.X));
+               change = true;
+            }
+            else if (playerPosition.X > movingRectangle.X + movingRectangle.Width)
+            {
+                tempVector.X = (position.X - (movingRectangle.X - playerPosition.X));
+                change = true;
+            }
 
+            if (playerPosition.Y < movingRectangle.Y)
+            {
+                tempVector.Y =  (position.Y - (playerPosition.Y - movingRectangle.Y));
+                change = true;
+            }
+            else if (playerPosition.Y > movingRectangle.Y + movingRectangle.Height)
+            {
+                tempVector.Y = (position.Y - (movingRectangle.Y - playerPosition.Y));
+                change = true;
+            }
+
+            if (change) { Position = tempVector;}
+        }
+        
     }
 }
