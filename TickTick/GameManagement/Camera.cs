@@ -49,12 +49,12 @@ namespace GameManagement
         public Vector2 Position { get { return position; }
             set
             {
-                if (value.X >= 0) { 
+                if (value.X >= 0 && value.X <= rightBoundary) { 
                 position.X = value.X; 
                 cameraOutline.X = (int)value.X; 
                 movingRectangle.X= (int) (position.X +(cameraOutline.Width/2 - moveableWidth/2));
                 }
-                if (MoveVertical && value.Y>=0)
+                if (MoveVertical && value.Y>=0 && value.Y <= lowerBoundary)
                 {
                 position.Y = value.Y;
                 cameraOutline.Y = (int)value.Y;
