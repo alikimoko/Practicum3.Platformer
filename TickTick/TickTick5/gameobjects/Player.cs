@@ -54,7 +54,7 @@ partial class Player : AnimatedGameObject
             velocity.X = 0.0f;
         if (velocity.X != 0.0f)
             Mirror = velocity.X < 0;
-        if ((inputHelper.KeyPressed(Keys.Space) || inputHelper.KeyPressed(Keys.Up) || inputHelper.ControlerButtonPressed(Buttons.DPadUp)) && isOnTheGround)
+        if ((inputHelper.KeyPressed(Keys.Space) || inputHelper.KeyPressed(Keys.Up) || inputHelper.ControlerButtonPressed(Buttons.DPadUp) || inputHelper.ControlerButtonPressed(Buttons.A)) && isOnTheGround)
             Jump();
     }
 

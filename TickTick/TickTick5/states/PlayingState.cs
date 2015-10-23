@@ -116,7 +116,7 @@ class PlayingState : IGameLoopObject
 
     public void WriteLevelsStatus(string path)
     {
-        // read the lines
+        // write the lines
         List<string> textlines = new List<string>();
         StreamWriter fileWriter = new StreamWriter(path, false);
         for (int i = 0; i < levels.Count; i++)
