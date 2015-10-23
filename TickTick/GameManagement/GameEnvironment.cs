@@ -16,6 +16,7 @@ public class GameEnvironment : Game
     protected static AssetManager assetManager;
     protected static GameSettingsManager gameSettingsManager;
 
+    /// <summary>Create a new game with basic environement methods and variables.</summary>
     public GameEnvironment()
     {
         graphics = new GraphicsDeviceManager(this);
@@ -28,38 +29,39 @@ public class GameEnvironment : Game
         gameSettingsManager = new GameSettingsManager();
     }
 
+    /// <summary>The current screen size.</summary>
     public static Point Screen
     {
-        get { return GameEnvironment.screen; }
+        get { return screen; }
         set { screen = value; }
     }
 
+    /// <summary>Get the current random.</summary>
     public static Random Random
-    {
-        get { return random; }
-    }
+    { get { return random; } }
 
+    /// <summary>Get the current asset manager.</summary>
     public static AssetManager AssetManager
-    {
-        get { return assetManager; }
-    }
+    { get { return assetManager; } }
 
+    /// <summary>Get the current game state manager.</summary>
     public static GameStateManager GameStateManager
-    {
-        get { return gameStateManager; }
-    }
+    { get { return gameStateManager; } }
 
+    /// <summary>Get the current game settings manager.</summary>
     public static GameSettingsManager GameSettingsManager
-    {
-        get { return gameSettingsManager; }
-    }
+    { get { return gameSettingsManager; } }
 
+    /// <summary>Set fullscreen mode.</summary>
+    /// <param name="fullscreen">Should the fullscreen mode be activated?</param>
     public void SetFullScreen(bool fullscreen = true)
     {
+        // calculate current scales
         float scalex = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / (float)screen.X;
         float scaley = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / (float)screen.Y;
         float finalscale = 1f;
 
+        // calculate scales after fullscreen mode change
         if (!fullscreen)
         {
             if (scalex < 1f || scaley < 1f)
@@ -72,6 +74,7 @@ public class GameEnvironment : Game
                 finalscale = scaley;
         }
 
+        // apply new mode
         graphics.PreferredBackBufferWidth = (int)(finalscale * screen.X);
         graphics.PreferredBackBufferHeight = (int)(finalscale * screen.Y);
         graphics.IsFullScreen = fullscreen;
@@ -87,26 +90,36 @@ public class GameEnvironment : Game
         spriteBatch = new SpriteBatch(GraphicsDevice);
     }
 
+    /// <summary>Handle user inputs.</summary>
     protected void HandleInput()
     {
         inputHelper.Update();
         if (inputHelper.KeyPressed(Keys.Escape))
-            this.Exit();
+            // exit the game
+            Exit();
         if (inputHelper.KeyPressed(Keys.F5))
+            // toggle fullscreen mode
             SetFullScreen(!graphics.IsFullScreen);
+
+        // handle inputs for the current game state
         gameStateManager.HandleInput(inputHelper);
     }
 
+    /// <summary>Update the game.</summary>
     protected override void Update(GameTime gameTime)
     {
         HandleInput();
+        // handle updates for the current game state
         gameStateManager.Update(gameTime);
     }
 
+    /// <summary>Draw the game.</summary>
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.Black);
+        // apply scaling
         spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, spriteScale);
+        // draw the current game state
         gameStateManager.Draw(gameTime, spriteBatch);
         spriteBatch.End();
     }

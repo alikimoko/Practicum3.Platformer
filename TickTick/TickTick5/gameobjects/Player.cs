@@ -46,15 +46,15 @@ partial class Player : AnimatedGameObject
             walkingSpeed *= 1.5f;
         if (!isAlive)
             return;
-        if (inputHelper.IsKeyDown(Keys.Left))
+        if (inputHelper.IsKeyDown(Keys.Left) || inputHelper.IsKeyDown(Keys.A) || inputHelper.IsControlerButtonDown(Buttons.DPadLeft) || inputHelper.GetLeftControlerStick() == Direction.Left)
             velocity.X = -walkingSpeed;
-        else if (inputHelper.IsKeyDown(Keys.Right))
+        else if (inputHelper.IsKeyDown(Keys.Right) || inputHelper.IsKeyDown(Keys.D) || inputHelper.IsControlerButtonDown(Buttons.DPadRight) || inputHelper.GetLeftControlerStick() == Direction.Right)
             velocity.X = walkingSpeed;
         else if (!walkingOnIce && isOnTheGround)
             velocity.X = 0.0f;
         if (velocity.X != 0.0f)
             Mirror = velocity.X < 0;
-        if ((inputHelper.KeyPressed(Keys.Space) || inputHelper.KeyPressed(Keys.Up)) && isOnTheGround)
+        if ((inputHelper.KeyPressed(Keys.Space) || inputHelper.KeyPressed(Keys.Up) || inputHelper.ControlerButtonPressed(Buttons.DPadUp)) && isOnTheGround)
             Jump();
     }
 
