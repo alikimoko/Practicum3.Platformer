@@ -6,9 +6,6 @@ using Microsoft.Xna.Framework;
 
 namespace GameManagement
 {
-
-
-
     class Camera
     {
         Vector2 position;
@@ -33,8 +30,7 @@ namespace GameManagement
             position = startingPosition;
             this.moveableWidth = moveableWidth;
             this.moveableHeight = moveableHeight;
-
-            
+                        
             cameraOutline = new Rectangle((int)position.X, (int)position.Y, screenWidth, screenHeight);
             movingRectangle = new Rectangle((int)(position.X + (cameraOutline.Width / 2 - moveableWidth / 2)), (int)(position.Y + (cameraOutline.Height / 2 - moveableHeight / 2)), this.moveableWidth, this.moveableHeight);
         }
@@ -46,7 +42,7 @@ namespace GameManagement
         }
 
         public bool MoveVertical { get { return moveVertical; }}
-        public Rectangle MovingRectangle { get { return movingRectangle; }}
+        public Rectangle CameraOutline { get { return cameraOutline; } set { } }
         public Vector2 Position { get { return position; }
             set
             {
