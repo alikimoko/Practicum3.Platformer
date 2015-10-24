@@ -4,8 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
-namespace GameManagement
-{
+
     class Camera
     {
         Vector2 position;
@@ -42,7 +41,7 @@ namespace GameManagement
         }
 
         public bool MoveVertical { get { return moveVertical; }}
-        public Rectangle CameraOutline { get { return cameraOutline; } set { } }
+        public Rectangle CameraOutline { get { return cameraOutline; }}
         public Vector2 Position { get { return position; }
             set
             {
@@ -66,23 +65,23 @@ namespace GameManagement
             bool change = false;
             if (playerPosition.X < movingRectangle.X)
             {
-               tempVector.X = (position.X - (playerPosition.X - movingRectangle.X));
+               tempVector.X = (position.X - (movingRectangle.X - playerPosition.X));
                change = true;
             }
             else if (playerPosition.X > movingRectangle.X + movingRectangle.Width)
             {
-                tempVector.X = (position.X - (movingRectangle.X - playerPosition.X));
+                tempVector.X = (position.X + (playerPosition.X - (movingRectangle.X + movingRectangle.Width)));
                 change = true;
             }
 
             if (playerPosition.Y < movingRectangle.Y)
             {
-                tempVector.Y =  (position.Y - (playerPosition.Y - movingRectangle.Y));
+                tempVector.Y =  (position.Y - (movingRectangle.Y - playerPosition.Y));
                 change = true;
             }
             else if (playerPosition.Y > movingRectangle.Y + movingRectangle.Height)
             {
-                tempVector.Y = (position.Y - (movingRectangle.Y - playerPosition.Y));
+                tempVector.Y = (position.Y + (playerPosition.Y - (movingRectangle.Y + movingRectangle.Height)));
                 change = true;
             }
 
@@ -90,4 +89,3 @@ namespace GameManagement
         }
         
     }
-}
