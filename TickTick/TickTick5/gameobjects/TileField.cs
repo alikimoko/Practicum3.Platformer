@@ -11,7 +11,7 @@ class TileField : GameObjectGrid
             return TileType.Normal;
         if (y < 0 || y >= Rows)
             return TileType.Background;
-        Tile current = this.Objects[x, y] as Tile;
+        Tile current = Objects[x, y] as Tile;
         return current.TileType;
     }
 }

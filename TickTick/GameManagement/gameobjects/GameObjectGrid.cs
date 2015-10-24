@@ -34,12 +34,10 @@ public class GameObjectGrid : GameObject
     /// <summary>Get the object in column x and row y.</summary>
     public GameObject Get(int x, int y)
     {
-        try { return grid[x, y]; }
-        catch(System.IndexOutOfRangeException e)
-        {
-            System.Diagnostics.Debug.WriteLine(e.Source + " atempted to read an out of bound index in " + e.TargetSite.Name + "\nStacktrace:\n" + e.StackTrace);
+        if (x >= 0 && x < grid.GetLength(0) && y >= 0 && y < grid.GetLength(1))
+            return grid[x, y];
+        else
             return null;
-        }
     }
 
     /// <summary>Get this object its grid.</summary>

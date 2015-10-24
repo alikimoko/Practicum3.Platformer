@@ -20,7 +20,6 @@ partial class Level : GameObjectList
 
         GameObjectList hintfield = new GameObjectList(100);
         this.Add(hintfield);
-        string hint = textlines[textlines.Count - 1];
         SpriteGameObject hint_frame = new SpriteGameObject("Overlays/spr_frame_hint", 1);
         hintfield.Position = new Vector2((GameEnvironment.Screen.X - hint_frame.Width) / 2, 10);
         hintfield.Add(hint_frame);

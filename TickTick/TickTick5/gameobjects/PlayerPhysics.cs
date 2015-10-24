@@ -36,7 +36,7 @@ partial class Player :  AnimatedGameObject
                 Tile currentTile = tiles.Get(x, y) as Tile;
                 Rectangle tileBounds = new Rectangle(x * tiles.CellWidth, y * tiles.CellHeight,
                                                         tiles.CellWidth, tiles.CellHeight);
-                Rectangle boundingBox = this.BoundingBox;
+                Rectangle boundingBox = BoundingBox;
                 boundingBox.Height += 1;
                 if (((currentTile != null && !currentTile.CollidesWith(this)) || currentTile == null) && !tileBounds.Intersects(boundingBox))
                     continue;
