@@ -59,7 +59,7 @@ using Microsoft.Xna.Framework;
             }
         }
 
-        public void moveCamera(Vector2 playerPosition)
+        public void moveCamera(Vector2 playerPosition, float playerWidth, float playerHeigth)
         {
             Vector2 tempVector = new Vector2(0,0);
             bool change = false;
@@ -68,9 +68,9 @@ using Microsoft.Xna.Framework;
                tempVector.X = (position.X - (movingRectangle.X - playerPosition.X));
                change = true;
             }
-            else if (playerPosition.X > movingRectangle.X + movingRectangle.Width)
+            else if (playerPosition.X + playerWidth > movingRectangle.X + movingRectangle.Width)
             {
-                tempVector.X = (position.X + (playerPosition.X - (movingRectangle.X + movingRectangle.Width)));
+                tempVector.X = (position.X + ((playerPosition.X + playerWidth) - (movingRectangle.X + movingRectangle.Width)));
                 change = true;
             }
 
@@ -79,9 +79,9 @@ using Microsoft.Xna.Framework;
                 tempVector.Y =  (position.Y - (movingRectangle.Y - playerPosition.Y));
                 change = true;
             }
-            else if (playerPosition.Y > movingRectangle.Y + movingRectangle.Height)
+            else if (playerPosition.Y + playerHeigth > movingRectangle.Y + movingRectangle.Height)
             {
-                tempVector.Y = (position.Y + (playerPosition.Y - (movingRectangle.Y + movingRectangle.Height)));
+                tempVector.Y = (position.Y + ((playerPosition.Y + playerHeigth)- (movingRectangle.Y + movingRectangle.Height)));
                 change = true;
             }
 
