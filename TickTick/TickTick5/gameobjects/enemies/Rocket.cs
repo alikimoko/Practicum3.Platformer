@@ -4,7 +4,8 @@ class Rocket : AnimatedGameObject
 {
     protected double spawnTime;
     protected Vector2 startPosition;
-
+    
+    /* ORIGINAL try
     public Rocket(bool moveToLeft, Vector2 startPosition)
     {
         LoadAnimation("Sprites/Rocket/spr_rocket@3", "default", true, 0.2f);
@@ -13,13 +14,25 @@ class Rocket : AnimatedGameObject
         this.startPosition = startPosition;
         Reset();
     }
+    */
+
+    public Rocket(bool moveToLeft, Vector2 startPosition, int extraSpawnTime = 0)
+    {
+        LoadAnimation("Sprites/Rocket/spr_rocket@3", "default", true, 0.2f);
+        PlayAnimation("default");
+        Mirror = moveToLeft;
+        this.startPosition = startPosition;
+        spawnTime = 5 + extraSpawnTime; // try
+        Reset();
+    }
 
     public override void Reset()
     {
         Visible = false;
         position = startPosition;
         velocity = Vector2.Zero;
-        spawnTime = GameEnvironment.Random.NextDouble() * 5;
+        //spawnTime = GameEnvironment.Random.NextDouble() * 5; try
+        
     }
 
     public override void Update(GameTime gameTime)
