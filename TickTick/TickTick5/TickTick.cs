@@ -2,24 +2,27 @@ using Microsoft.Xna.Framework;
 
 class TickTick : GameEnvironment
 {
+    /// <summary>Start the game.</summary>
     static void Main()
     {
         TickTick game = new TickTick();
         game.Run();
     }
 
+    /// <summary>Create the game.</summary>
     public TickTick()
     {
         Content.RootDirectory = "Content";
-        this.IsMouseVisible = true;
+        IsMouseVisible = true;
     }
 
+    /// <summary>Load the gamstates and background music.</summary>
     protected override void LoadContent()
     {
         base.LoadContent();
 
         screen = new Point(1440, 825);
-        this.SetFullScreen(false);
+        SetFullScreen(false);
 
         gameStateManager.AddGameState("titleMenu", new TitleMenuState());
         gameStateManager.AddGameState("helpState", new HelpState());
