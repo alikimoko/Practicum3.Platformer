@@ -4,9 +4,18 @@ partial class Level : GameObjectList
 {
     protected bool locked, solved;
     protected Button quitButton;
+    protected Vector2 cameraStart;
+    protected int levelWidth;
+    protected int levelHeigth;
+    protected int moveableHeigth;
+    protected int moveableWidth;
+    protected bool moveVertical;
 
     public Level(int levelIndex)
     {
+        //create the camera
+        Camera camera = new Camera(GameEnvironment.Screen.X, GameEnvironment.Screen.Y, cameraStart, levelWidth, levelHeigth, moveableHeigth, moveableWidth, moveVertical);
+
         // load the backgrounds
         GameObjectList backgrounds = new GameObjectList(0, "backgrounds");
         SpriteGameObject background_main = new SpriteGameObject("Backgrounds/spr_sky");

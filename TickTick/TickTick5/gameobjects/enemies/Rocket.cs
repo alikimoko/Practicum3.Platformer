@@ -3,6 +3,7 @@
 class Rocket : AnimatedGameObject
 {
     protected double spawnTime;
+    protected double realSpawntime;
     protected Vector2 startPosition;
     
     /* ORIGINAL try
@@ -22,7 +23,8 @@ class Rocket : AnimatedGameObject
         PlayAnimation("default");
         Mirror = moveToLeft;
         this.startPosition = startPosition;
-        spawnTime = 5 + extraSpawnTime; // try
+        spawnTime = 2 + extraSpawnTime;   //try
+        realSpawntime = spawnTime; // try
         Reset();
     }
 
@@ -31,6 +33,7 @@ class Rocket : AnimatedGameObject
         Visible = false;
         position = startPosition;
         velocity = Vector2.Zero;
+        spawnTime = realSpawntime; //try
         //spawnTime = GameEnvironment.Random.NextDouble() * 5; try
         
     }

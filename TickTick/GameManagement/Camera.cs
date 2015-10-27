@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-class Camera
+public class Camera
 {
     Vector2 position;
     Rectangle cameraOutline, movingRectangle;
