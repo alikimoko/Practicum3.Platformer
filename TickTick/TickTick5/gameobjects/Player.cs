@@ -10,7 +10,7 @@ partial class Player : AnimatedGameObject
     protected bool exploded;
     protected bool finished;
     protected bool walkingOnIce, walkingOnHot;
-
+    
     public Player(Vector2 start) : base(2, "player", true)
     {
         LoadAnimation("Sprites/Player/spr_idle", "idle", true); 
@@ -18,7 +18,7 @@ partial class Player : AnimatedGameObject
         LoadAnimation("Sprites/Player/spr_jump@14", "jump", false, 0.05f); 
         LoadAnimation("Sprites/Player/spr_celebrate@14", "celebrate", false, 0.05f);
         LoadAnimation("Sprites/Player/spr_die@5", "die", false);
-        LoadAnimation("Sprites/Player/spr_explode@5x5", "explode", false, 0.04f); 
+        LoadAnimation("Sprites/Player/spr_explode@5x5", "explode", false, 0.04f);
 
         startPosition = start;
         Reset();
@@ -53,8 +53,10 @@ partial class Player : AnimatedGameObject
             velocity.X = 0.0f;
         if (velocity.X != 0.0f)
             Mirror = velocity.X < 0;
-        if ((inputHelper.KeyPressed(Keys.Space) || inputHelper.KeyPressed(Keys.Up) || inputHelper.KeyPressed(Keys.W) || inputHelper.ControlerButtonPressed(Buttons.DPadUp) || inputHelper.ControlerButtonPressed(Buttons.A)) && isOnTheGround)
+        if ((inputHelper.KeyPressed(Keys.Up) || inputHelper.KeyPressed(Keys.W) || inputHelper.ControlerButtonPressed(Buttons.DPadUp) || inputHelper.ControlerButtonPressed(Buttons.A)) && isOnTheGround)
             Jump();
+        if (inputHelper.KeyPressed(Keys.Space))
+        {   Shoot();}
     }
 
     public override void Update(GameTime gameTime)
@@ -130,5 +132,11 @@ partial class Player : AnimatedGameObject
         velocity.X = 0.0f;
         this.PlayAnimation("celebrate");
         GameEnvironment.AssetManager.PlaySound("Sounds/snd_player_won");
+    }
+
+    public void Shoot()
+    {
+        new Projectile(position, Mirror);
+        
     }
 }
