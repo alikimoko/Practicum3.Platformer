@@ -49,14 +49,14 @@ public class Camera
 
             if (tempVector.X != position.X)
             {
-                position.X = value.X;
-                cameraOutline.X = (int)value.X;
+                position.X = tempVector.X;
+                cameraOutline.X = (int)tempVector.X;
                 movingRectangle.X = (int)(position.X + (cameraOutline.Width / 2 - moveableWidth / 2));
             }
             if (moveVertical && tempVector.Y != position.Y)
             {
-                position.Y = value.Y;
-                cameraOutline.Y = (int)value.Y;
+                position.Y = tempVector.Y;
+                cameraOutline.Y = (int)tempVector.Y;
                 movingRectangle.Y = (int)(position.Y + (cameraOutline.Height / 2 - moveableHeight / 2));
             }
         }
