@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
@@ -20,7 +21,7 @@ partial class Level : GameObjectList
             textlines.Add(line);
             line = fileReader.ReadLine();
         }
-        height = textlines.Count - 1;
+        height = textlines.Count - 2;
 
         // add the hint
         GameObjectList hintfield = new GameObjectList(100);
@@ -29,12 +30,17 @@ partial class Level : GameObjectList
         hintfield.Position = new Vector2((GameEnvironment.Screen.X - hint_frame.Width) / 2, 10);
         hintfield.Add(hint_frame);
         TextGameObject hintText = new TextGameObject("Fonts/HintFont", 2); // hint text
-        hintText.Text = textlines[textlines.Count - 1]; // last line in the level descriptor
+        hintText.Text = textlines[textlines.Count - 2]; // last line in the level descriptor
         hintText.Position = new Vector2(120, 25);
         hintText.Color = Color.Black;
         hintfield.Add(hintText);
         VisibilityTimer hintTimer = new VisibilityTimer(hintfield, 1, "hintTimer"); // timeout
         Add(hintTimer);
+
+        TimerGameObject timer = new TimerGameObject(101, "timer");
+        timer.Position = new Vector2(25, 30);
+        timer.TimeLeft = TimeSpan.FromSeconds(double.Parse(textlines[textlines.Count - 1]));
+        Add(timer);
 
         // construct the level
         TileField tiles = new TileField(height, width, 1, "tiles");
