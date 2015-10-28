@@ -120,9 +120,8 @@ partial class Level : GameObjectList
 
         // create the camera
         levelCamera = new Camera(GameEnvironment.Screen.X, GameEnvironment.Screen.Y,
-                                 startPosition - new Vector2(GameEnvironment.Screen.X / 2, GameEnvironment.Screen.Y / 2),
-                                 width * tiles.CellWidth, height * tiles.CellHeight,
-                                 height * tiles.CellHeight > GameEnvironment.Screen.Y);
+                                 startPosition, Width, Height,
+                                 Height > GameEnvironment.Screen.Y);
 
         levelCamera.moveCamera(player.GlobalPosition, player.Width, player.Height);
 
