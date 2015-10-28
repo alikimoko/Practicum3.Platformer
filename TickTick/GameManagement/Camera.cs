@@ -13,10 +13,10 @@ public class Camera
         this.moveVertical = moveVertical;
         position = startingPosition;
         if (!moveVertical) { position.Y = 0; }
-        calculateBoundary(levelWidth, levelHeigth);
 
         cameraOutline = new Rectangle((int)position.X, (int)position.Y, screenWidth, screenHeight);
         movingRectangle = new Rectangle((int)(position.X + (cameraOutline.Width / 2 - moveableWidth / 2)), (int)(position.Y + (cameraOutline.Height / 2 - moveableHeight / 2)), moveableWidth, moveableHeight);
+        calculateBoundary(levelWidth, levelHeigth);
     }
 
     public Camera(int screenWidth, int screenHeight, Vector2 startingPosition, int levelWidth, int levelHeigth, int moveableHeight, int moveableWidth, bool moveVertical = false)
@@ -29,6 +29,7 @@ public class Camera
 
         cameraOutline = new Rectangle((int)position.X, (int)position.Y, screenWidth, screenHeight);
         movingRectangle = new Rectangle((int)(position.X + (cameraOutline.Width / 2 - moveableWidth / 2)), (int)(position.Y + (cameraOutline.Height / 2 - moveableHeight / 2)), this.moveableWidth, this.moveableHeight);
+        calculateBoundary(levelWidth, levelHeigth);
     }
 
     private void calculateBoundary(int levelWidth, int levelHeigth)
