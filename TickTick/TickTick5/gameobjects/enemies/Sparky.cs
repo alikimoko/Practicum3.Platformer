@@ -7,11 +7,11 @@ class Sparky : AnimatedGameObject
     protected float yoffset;
     protected float initialY;
 
-    public Sparky(float initialY)
+    public Sparky(float initialY) : base(0,"", true)
     {
-        this.LoadAnimation("Sprites/Sparky/spr_electrocute@6x5", "electrocute", false);
-        this.LoadAnimation("Sprites/Sparky/spr_idle", "idle", true);
-        this.PlayAnimation("idle");
+        LoadAnimation("Sprites/Sparky/spr_electrocute@6x5", "electrocute", false);
+        LoadAnimation("Sprites/Sparky/spr_idle", "idle", true);
+        PlayAnimation("idle");
         this.initialY = initialY;
         Reset();
     }
@@ -19,7 +19,7 @@ class Sparky : AnimatedGameObject
     public override void Reset()
     {
         idleTime = (float)GameEnvironment.Random.NextDouble() * 5;
-        this.position.Y = initialY;
+        position.Y = initialY;
         yoffset = 120;
         velocity = Vector2.Zero;
     }
@@ -29,26 +29,25 @@ class Sparky : AnimatedGameObject
         base.Update(gameTime);
         if (idleTime <= 0)
         {
-            this.PlayAnimation("electrocute");
-            if (this.velocity.Y != 0)
+            PlayAnimation("electrocute");
+            if (velocity.Y != 0)
             {
                 // falling down
-                yoffset -= this.velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                yoffset -= velocity.Y * (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (yoffset <= 0)
-                    this.velocity.Y = 0;
+                    velocity.Y = 0;
                 else if (yoffset >= 120.0f)
-                    this.Reset();
+                    Reset();
             }
             else if (Current.AnimationEnded)
-                this.velocity.Y = -60;
+                velocity.Y = -60;
         }
         else
         {
-            this.PlayAnimation("idle");
+            PlayAnimation("idle");
             idleTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (idleTime <= 0.0f)
-                this.velocity.Y = 300;
-
+                velocity.Y = 300;
         }
 
         CheckPlayerCollision();
@@ -57,7 +56,7 @@ class Sparky : AnimatedGameObject
     public void CheckPlayerCollision()
     {
         Player player = GameWorld.Find("player") as Player;
-        if (this.CollidesWith(player) && idleTime <= 0.0f)
+        if (CollidesWith(player) && idleTime <= 0.0f)
             player.Die(false);
     }
 }

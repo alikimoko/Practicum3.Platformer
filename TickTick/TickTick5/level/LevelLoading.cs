@@ -186,7 +186,7 @@ partial class Level : GameObjectList
     private Tile LoadEndTile(int x, int y)
     {
         TileField tiles = Find("tiles") as TileField;
-        SpriteGameObject exitObj = new SpriteGameObject("Sprites/spr_goal", 1, "exit");
+        SpriteGameObject exitObj = new SpriteGameObject("Sprites/spr_goal", 1, "exit", 0, true);
         exitObj.Position = new Vector2(x * tiles.CellWidth, (y+1) * tiles.CellHeight);
         exitObj.Origin = new Vector2(0, exitObj.Height);
         Add(exitObj);

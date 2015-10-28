@@ -6,9 +6,7 @@ class WaterDrop : SpriteGameObject
 {
     protected float bounce;
 
-    public WaterDrop(int layer=0, string id="") : base("Sprites/spr_water", layer, id) 
-    {
-    }
+    public WaterDrop(int layer=0, string id="") : base("Sprites/spr_water", layer, id, 0, true) { }
 
     public override void Update(GameTime gameTime)
     {
@@ -16,9 +14,9 @@ class WaterDrop : SpriteGameObject
         bounce = (float)Math.Sin(t) * 0.2f;
         position.Y += bounce;
         Player player = GameWorld.Find("player") as Player;
-        if (this.visible && this.CollidesWith(player))
+        if (visible && CollidesWith(player))
         {
-            this.visible = false;
+            visible = false;
             GameEnvironment.AssetManager.PlaySound("Sounds/snd_watercollected");
         }
     }

@@ -10,9 +10,9 @@ class TimerGameObject : TextGameObject
     public TimerGameObject(int layer = 0, string id = "")
         : base("Fonts/Hud", layer, id)
     {
-        this.multiplier = 1;
-        this.timeLeft = TimeSpan.FromMinutes(0.5);
-        this.running = true;
+        multiplier = 1;
+        timeLeft = TimeSpan.FromMinutes(0.5);
+        running = true;
     }
 
     public override void Update(GameTime gameTime)
@@ -24,17 +24,17 @@ class TimerGameObject : TextGameObject
         if (timeLeft.Ticks < 0)
             return;
         DateTime timeleft = new DateTime(timeLeft.Ticks);
-        this.Text = timeleft.ToString("mm:ss");
-        this.color = Color.Yellow;
+        Text = timeleft.ToString("mm:ss");
+        color = Color.Yellow;
         if (timeLeft.TotalSeconds <= 10 && (int)timeLeft.TotalSeconds % 2 == 0)
-            this.color = Color.Red;
+            color = Color.Red;
     }
 
     public override void Reset()
     {
         base.Reset();
-        this.timeLeft = TimeSpan.FromMinutes(0.5);
-        this.running = true;
+        timeLeft = TimeSpan.FromMinutes(0.5);
+        running = true;
     }
 
     public bool Running
@@ -50,7 +50,5 @@ class TimerGameObject : TextGameObject
     }
 
     public bool GameOver
-    {
-        get { return (timeLeft.Ticks <= 0); }
-    }
+    { get { return (timeLeft.Ticks <= 0); } }
 }

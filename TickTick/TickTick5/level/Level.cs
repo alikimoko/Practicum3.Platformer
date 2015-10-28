@@ -28,7 +28,7 @@ partial class Level : GameObjectList
             backgrounds.Add(mountain);
         }
 
-        Clouds clouds = new Clouds(2);
+        Clouds clouds = new Clouds(2, "", this);
         backgrounds.Add(clouds);
         Add(backgrounds);
 
@@ -85,5 +85,11 @@ partial class Level : GameObjectList
 
     public Camera LevelCamera
     { get { return levelCamera; } }
+
+    public int Width
+    { get { return width; } }
+
+    public int Height
+    { get { return height; } }
 }
 

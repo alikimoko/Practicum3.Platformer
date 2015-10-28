@@ -5,12 +5,12 @@ class PatrollingEnemy : AnimatedGameObject
 {
     protected float waitTime;
 
-    public PatrollingEnemy()
+    public PatrollingEnemy() : base(0,"", true)
     {
         waitTime = 0.0f;
         velocity.X = 120;
-        this.LoadAnimation("Sprites/Flame/spr_flame@9", "default", true);
-        this.PlayAnimation("default");
+        LoadAnimation("Sprites/Flame/spr_flame@9", "default", true);
+        PlayAnimation("default");
     }
 
     public override void Update(GameTime gameTime)
@@ -25,9 +25,9 @@ class PatrollingEnemy : AnimatedGameObject
         else
         {
             TileField tiles = GameWorld.Find("tiles") as TileField;
-            float posX = this.BoundingBox.Left;
+            float posX = BoundingBox.Left;
             if (!Mirror)
-                posX = this.BoundingBox.Right;
+                posX = BoundingBox.Right;
             int tileX = (int)Math.Floor(posX / tiles.CellWidth);
             int tileY = (int)Math.Floor(position.Y / tiles.CellHeight);
             if (tiles.GetTileType(tileX, tileY - 1) == TileType.Normal ||
@@ -37,21 +37,21 @@ class PatrollingEnemy : AnimatedGameObject
                 velocity.X = 0.0f;
             }
         }
-        this.CheckPlayerCollision();
+        CheckPlayerCollision();
     }
 
     public void CheckPlayerCollision()
     {
         Player player = GameWorld.Find("player") as Player;
-        if (this.CollidesWith(player))
+        if (CollidesWith(player))
             player.Die(false);
     }
 
     public void TurnAround()
     {
         Mirror = !Mirror;
-        this.velocity.X = 120;
+        velocity.X = 120;
         if (Mirror)
-            this.velocity.X = -this.velocity.X;
+            velocity.X = -velocity.X;
     }
 }

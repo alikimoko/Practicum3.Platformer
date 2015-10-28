@@ -5,8 +5,8 @@ public class AnimatedGameObject : SpriteGameObject
 {
     protected Dictionary<string,Animation> animations;
 
-    public AnimatedGameObject(int layer = 0, string id = "")
-        : base("", layer, id)
+    public AnimatedGameObject(int layer = 0, string id = "", bool moving = false)
+        : base("", layer, id, 0, moving)
     {
         animations = new Dictionary<string, Animation>();
     }

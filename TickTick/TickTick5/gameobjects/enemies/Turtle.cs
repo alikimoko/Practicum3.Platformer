@@ -5,11 +5,11 @@ class Turtle : AnimatedGameObject
     protected float sneezeTime;
     protected float idleTime;
 
-    public Turtle()
+    public Turtle() : base(0, "", true)
     {
-        this.LoadAnimation("Sprites/Turtle/spr_sneeze@9", "sneeze", false);
-        this.LoadAnimation("Sprites/Turtle/spr_idle", "idle", true);
-        this.PlayAnimation("idle");
+        LoadAnimation("Sprites/Turtle/spr_sneeze@9", "sneeze", false);
+        LoadAnimation("Sprites/Turtle/spr_idle", "idle", true);
+        PlayAnimation("idle");
         Reset();
     }
 
@@ -24,7 +24,7 @@ class Turtle : AnimatedGameObject
         base.Update(gameTime);
         if (sneezeTime > 0)
         {
-            this.PlayAnimation("sneeze");
+            PlayAnimation("sneeze");
             sneezeTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (sneezeTime <= 0.0f)
             {
@@ -34,7 +34,7 @@ class Turtle : AnimatedGameObject
         }
         else if (idleTime > 0)
         {
-            this.PlayAnimation("idle");
+            PlayAnimation("idle");
             idleTime -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (idleTime <= 0.0f)
             {
@@ -49,7 +49,7 @@ class Turtle : AnimatedGameObject
     public void CheckPlayerCollision()
     {
         Player player = GameWorld.Find("player") as Player;
-        if (!this.CollidesWith(player))
+        if (!CollidesWith(player))
             return;
         if (sneezeTime > 0)
             player.Die(false);

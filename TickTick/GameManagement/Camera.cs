@@ -12,6 +12,7 @@ public class Camera
     {
         this.moveVertical = moveVertical;
         position = startingPosition;
+        if (!moveVertical) { position.Y = 0; }
         calculateBoundary(levelWidth, levelHeigth);
 
         cameraOutline = new Rectangle((int)position.X, (int)position.Y, screenWidth, screenHeight);
@@ -22,6 +23,7 @@ public class Camera
     {
         this.moveVertical = moveVertical;
         position = startingPosition;
+        if (!moveVertical) { position.Y = 0; }
         this.moveableWidth = moveableWidth;
         this.moveableHeight = moveableHeight;
 
@@ -37,18 +39,21 @@ public class Camera
 
     public bool MoveVertical { get { return moveVertical; } }
     public Rectangle CameraOutline { get { return cameraOutline; } }
+
     public Vector2 Position
     {
         get { return position; }
         set
         {
-            if (value.X >= 0 && value.X <= rightBoundary)
+            Vector2 tempVector = new Vector2(MathHelper.Clamp(value.X, 0, rightBoundary), MathHelper.Clamp(value.X, 0, lowerBoundary));
+
+            if (tempVector.X != position.X)
             {
                 position.X = value.X;
                 cameraOutline.X = (int)value.X;
                 movingRectangle.X = (int)(position.X + (cameraOutline.Width / 2 - moveableWidth / 2));
             }
-            if (MoveVertical && value.Y >= 0 && value.Y <= lowerBoundary)
+            if (moveVertical && tempVector.Y != position.Y)
             {
                 position.Y = value.Y;
                 cameraOutline.Y = (int)value.Y;
@@ -61,6 +66,7 @@ public class Camera
     {
         Vector2 tempVector = new Vector2(0, 0);
         bool change = false;
+
         if (playerPosition.X < movingRectangle.X)
         {
             tempVector.X = (position.X - (movingRectangle.X - playerPosition.X));
@@ -72,17 +78,21 @@ public class Camera
             change = true;
         }
 
-        if (playerPosition.Y < movingRectangle.Y)
+        if (moveVertical)
         {
-            tempVector.Y = (position.Y - (movingRectangle.Y - playerPosition.Y));
-            change = true;
+            if (playerPosition.Y < movingRectangle.Y)
+            {
+                tempVector.Y = (position.Y - (movingRectangle.Y - playerPosition.Y));
+                change = true;
+            }
+            else if (playerPosition.Y + playerHeigth > movingRectangle.Y + movingRectangle.Height)
+            {
+                tempVector.Y = (position.Y + ((playerPosition.Y + playerHeigth) - (movingRectangle.Y + movingRectangle.Height)));
+                change = true;
+            }
         }
-        else if (playerPosition.Y + playerHeigth > movingRectangle.Y + movingRectangle.Height)
-        {
-            tempVector.Y = (position.Y + ((playerPosition.Y + playerHeigth) - (movingRectangle.Y + movingRectangle.Height)));
-            change = true;
-        }
-
-        if (change) { Position = tempVector; }
+        
+        if (change)
+        { Position = tempVector; }
     }
 }
