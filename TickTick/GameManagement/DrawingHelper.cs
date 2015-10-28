@@ -44,7 +44,7 @@ public class DrawingHelper
 
             // string drawing
             Vector2 stringSize = font.MeasureString(text);
-            spriteBatch.DrawString(font, text, new Vector2(Xcentre, YStart), fontColor, 0, new Vector2(stringSize.X / 2, 0), 1, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, text, new Vector2(Xcentre, YStart) - (GameEnvironment.ActiveCamera != null ? GameEnvironment.ActiveCamera.Position : Vector2.Zero), fontColor, 0, new Vector2(stringSize.X / 2, 0), 1, SpriteEffects.None, 0);
 
             // return to normal spacing
             if (lineSpacing != -1) { font.LineSpacing = originalLineSpacing; }
@@ -113,7 +113,7 @@ public class DrawingHelper
         for (int i = 0; i < text.Length; i++)
         {
             Vector2 stringSize = font.MeasureString(text[i]);
-            spriteBatch.DrawString(font, text[i], new Vector2(Xcentre, YStart + i * font.LineSpacing), fontColor, 0, new Vector2(stringSize.X / 2, 0), 1, SpriteEffects.None, 0);
+            spriteBatch.DrawString(font, text[i], new Vector2(Xcentre, YStart + i * font.LineSpacing) - (GameEnvironment.ActiveCamera != null ? GameEnvironment.ActiveCamera.Position : Vector2.Zero), fontColor, 0, new Vector2(stringSize.X / 2, 0), 1, SpriteEffects.None, 0);
         }
 
         // return to normal spacing

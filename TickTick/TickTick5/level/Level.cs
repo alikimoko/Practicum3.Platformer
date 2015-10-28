@@ -15,34 +15,34 @@ partial class Level : GameObjectList
         background_main.Position = new Vector2(0, GameEnvironment.Screen.Y - background_main.Height);
         backgrounds.Add(background_main);
 
+        Add(new GameObjectList(1, "waterdrops"));
+        Add(new GameObjectList(2, "enemies"));
+
+        LoadTiles("Content/Levels/" + levelIndex + ".txt");
+
         // add a few random mountains
         for (int i = 0; i < 5; i++)
         {
             SpriteGameObject mountain = new SpriteGameObject("Backgrounds/spr_mountain_" + (GameEnvironment.Random.Next(2) + 1), 1);
-            mountain.Position = new Vector2((float)GameEnvironment.Random.NextDouble() * GameEnvironment.Screen.X - mountain.Width / 2, GameEnvironment.Screen.Y - mountain.Height);
+            mountain.Position = new Vector2((float)GameEnvironment.Random.NextDouble() * width - mountain.Width / 2, height - mountain.Height);
             backgrounds.Add(mountain);
         }
 
         Clouds clouds = new Clouds(2);
         backgrounds.Add(clouds);
-        this.Add(backgrounds);
+        Add(backgrounds);
 
         SpriteGameObject timerBackground = new SpriteGameObject("Sprites/spr_timer", 100);
         timerBackground.Position = new Vector2(10, 10);
-        this.Add(timerBackground);
+        Add(timerBackground);
         TimerGameObject timer = new TimerGameObject(101, "timer");
         timer.Position = new Vector2(25, 30);
-        this.Add(timer);
+        Add(timer);
 
         quitButton = new Button("Sprites/spr_button_quit", 100);
         quitButton.Position = new Vector2(GameEnvironment.Screen.X - quitButton.Width - 10, 10);
-        this.Add(quitButton);
-
-
-        this.Add(new GameObjectList(1, "waterdrops"));
-        this.Add(new GameObjectList(2, "enemies"));
-
-        this.LoadTiles("Content/Levels/" + levelIndex + ".txt");
+        Add(quitButton);
+        
     }
 
     public bool Completed
@@ -82,5 +82,8 @@ partial class Level : GameObjectList
         get { return solved; }
         set { solved = value; }
     }
+
+    public Camera LevelCamera
+    { get { return levelCamera; } }
 }
 

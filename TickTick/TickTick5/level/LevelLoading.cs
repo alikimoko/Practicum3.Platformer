@@ -124,6 +124,8 @@ partial class Level : GameObjectList
                                  width * tiles.CellWidth, height * tiles.CellHeight,
                                  height * tiles.CellHeight > GameEnvironment.Screen.Y);
 
+        levelCamera.moveCamera(player.GlobalPosition, player.Width, player.Height);
+
         return new Tile();
     }
 

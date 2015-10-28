@@ -26,7 +26,7 @@ public class SpriteGameObject : GameObject
     {
         if (!visible || sprite == null)
             return;
-        sprite.Draw(spriteBatch, GlobalPosition, origin);
+        sprite.Draw(spriteBatch, GlobalPosition - (GameEnvironment.ActiveCamera != null ? GameEnvironment.ActiveCamera.Position : Vector2.Zero), origin);
     }
 
     /// <summary>Get the sprite for this object.</summary>

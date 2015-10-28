@@ -15,6 +15,7 @@ public class GameEnvironment : Game
     protected static Random random;
     protected static AssetManager assetManager;
     protected static GameSettingsManager gameSettingsManager;
+    protected static Camera activeCamera;
 
     /// <summary>Create a new game with basic environement methods and variables.</summary>
     public GameEnvironment()
@@ -51,6 +52,13 @@ public class GameEnvironment : Game
     /// <summary>Get the current game settings manager.</summary>
     public static GameSettingsManager GameSettingsManager
     { get { return gameSettingsManager; } }
+
+    /// <summary>The current camera.</summary>
+    public static Camera ActiveCamera
+    {
+        get { return activeCamera; }
+        set { activeCamera = value; }
+    }
 
     /// <summary>Set fullscreen mode.</summary>
     /// <param name="fullscreen">Should the fullscreen mode be activated?</param>
