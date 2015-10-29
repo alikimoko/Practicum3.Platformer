@@ -4,31 +4,24 @@ public class Camera
 {
     Vector2 position;
     Rectangle cameraOutline, movingRectangle;
-    bool moveVertical;
-    int moveableWidth = 200, moveableHeight = 200; //placeholder, subject to change
+    bool moveHorizontal, moveVertical;
+    int moveableWidth, moveableHeight;
     int rightBoundary, lowerBoundary;
 
-    public Camera(int screenWidth, int screenHeight, Vector2 startingPosition, int levelWidth, int levelHeigth, bool moveVertical = false)
+    /// <summary>Create a new camera. NOTE: call moveCamera directly after this to align the camera</summary>
+    /// <param name="levelWidth"></param>
+    /// <param name="levelHeigth"></param>
+    /// <param name="moveableHeight"></param>
+    /// <param name="moveableWidth"></param>
+    public Camera(int levelWidth, int levelHeigth, int moveableHeight = 200, int moveableWidth = 200)
     {
-        this.moveVertical = moveVertical;
-        position = startingPosition;
-        if (!moveVertical) { position.Y = 0; }
-
-        cameraOutline = new Rectangle((int)position.X, (int)position.Y, screenWidth, screenHeight);
-        movingRectangle = new Rectangle((int)(position.X + (cameraOutline.Width / 2 - moveableWidth / 2)), (int)(position.Y + (cameraOutline.Height / 2 - moveableHeight / 2)), moveableWidth, moveableHeight);
-        calculateBoundary(levelWidth, levelHeigth);
-    }
-
-    public Camera(int screenWidth, int screenHeight, Vector2 startingPosition, int levelWidth, int levelHeigth, int moveableHeight, int moveableWidth, bool moveVertical = false)
-    {
-        this.moveVertical = moveVertical;
-        position = startingPosition;
-        if (!moveVertical) { position.Y = 0; }
+        moveHorizontal = levelWidth > GameEnvironment.Screen.X;
+        moveVertical = levelHeigth > GameEnvironment.Screen.Y;
         this.moveableWidth = moveableWidth;
         this.moveableHeight = moveableHeight;
 
-        cameraOutline = new Rectangle((int)position.X, (int)position.Y, screenWidth, screenHeight);
-        movingRectangle = new Rectangle((int)(position.X + (cameraOutline.Width / 2 - moveableWidth / 2)), (int)(position.Y + (cameraOutline.Height / 2 - moveableHeight / 2)), this.moveableWidth, this.moveableHeight);
+        cameraOutline = new Rectangle(0, 0, GameEnvironment.Screen.X, GameEnvironment.Screen.Y);
+        movingRectangle = new Rectangle((cameraOutline.Width - moveableWidth) / 2, (cameraOutline.Height - moveableHeight) / 2, moveableWidth, moveableHeight);
         calculateBoundary(levelWidth, levelHeigth);
     }
 
@@ -38,7 +31,9 @@ public class Camera
         lowerBoundary = levelHeigth - cameraOutline.Height;
     }
 
+    public bool MoveHorizontal { get { return moveHorizontal; } }
     public bool MoveVertical { get { return moveVertical; } }
+
     public Rectangle CameraOutline { get { return cameraOutline; } }
 
     public Vector2 Position
@@ -48,47 +43,50 @@ public class Camera
         {
             Vector2 tempVector = new Vector2(MathHelper.Clamp(value.X, 0, rightBoundary), MathHelper.Clamp(value.X, 0, lowerBoundary));
 
-            if (tempVector.X != position.X)
+            if (moveHorizontal && tempVector.X != position.X)
             {
                 position.X = tempVector.X;
                 cameraOutline.X = (int)tempVector.X;
-                movingRectangle.X = (int)(position.X + (cameraOutline.Width / 2 - moveableWidth / 2));
+                movingRectangle.X = (int)(position.X + (cameraOutline.Width - moveableWidth) / 2);
             }
             if (moveVertical && tempVector.Y != position.Y)
             {
                 position.Y = tempVector.Y;
                 cameraOutline.Y = (int)tempVector.Y;
-                movingRectangle.Y = (int)(position.Y + (cameraOutline.Height / 2 - moveableHeight / 2));
+                movingRectangle.Y = (int)(position.Y + (cameraOutline.Height - moveableHeight) / 2);
             }
         }
     }
 
-    public void moveCamera(Vector2 playerPosition, float playerWidth, float playerHeigth)
+    public void moveCamera(Vector2 centre)
     {
-        Vector2 tempVector = new Vector2(0, 0);
+        Vector2 tempVector = position;
         bool change = false;
 
-        if (playerPosition.X < movingRectangle.X)
+        if (moveHorizontal)
         {
-            tempVector.X = (position.X - (movingRectangle.X - playerPosition.X));
-            change = true;
-        }
-        else if (playerPosition.X + playerWidth > movingRectangle.X + movingRectangle.Width)
-        {
-            tempVector.X = (position.X + ((playerPosition.X + playerWidth) - (movingRectangle.X + movingRectangle.Width)));
-            change = true;
+            if (centre.X < movingRectangle.X)
+            {
+                tempVector.X -= (movingRectangle.X - centre.X);
+                change = true;
+            }
+            else if (centre.X > movingRectangle.Right)
+            {
+                tempVector.X += (centre.X - movingRectangle.Right);
+                change = true;
+            }
         }
 
         if (moveVertical)
         {
-            if (playerPosition.Y < movingRectangle.Y)
+            if (centre.Y < movingRectangle.Y)
             {
-                tempVector.Y = (position.Y - (movingRectangle.Y - playerPosition.Y));
+                tempVector.Y = (movingRectangle.Y - centre.Y);
                 change = true;
             }
-            else if (playerPosition.Y + playerHeigth > movingRectangle.Y + movingRectangle.Height)
+            else if (centre.Y > movingRectangle.Bottom)
             {
-                tempVector.Y = (position.Y + ((playerPosition.Y + playerHeigth) - (movingRectangle.Y + movingRectangle.Height)));
+                tempVector.Y = (centre.Y - movingRectangle.Bottom);
                 change = true;
             }
         }

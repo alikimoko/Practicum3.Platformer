@@ -86,7 +86,7 @@ partial class Player : AnimatedGameObject
         }
 
         DoPhysics();
-        GameEnvironment.ActiveCamera.moveCamera(GlobalPosition, Width, Height);
+        GameEnvironment.ActiveCamera.moveCamera(GlobalPosition + Center);
     }
 
     public void Explode()
@@ -113,7 +113,7 @@ partial class Player : AnimatedGameObject
             velocity.Y = -900;
             GameEnvironment.AssetManager.PlaySound("Sounds/snd_player_die");
         }
-        this.PlayAnimation("die");
+        PlayAnimation("die");
     }
 
     public bool IsAlive
