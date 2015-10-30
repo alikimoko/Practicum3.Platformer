@@ -6,6 +6,7 @@ class Sparky : AnimatedGameObject
     protected float idleTime;
     protected float yoffset;
     protected float initialY;
+    private bool active;
 
     public Sparky(float initialY) : base(0,"", true)
     {
@@ -13,6 +14,7 @@ class Sparky : AnimatedGameObject
         LoadAnimation("Sprites/Sparky/spr_idle", "idle", true, 0.1f);
         PlayAnimation("idle");
         this.initialY = initialY;
+        active = true;
         Reset();
     }
 
@@ -22,10 +24,15 @@ class Sparky : AnimatedGameObject
         position.Y = initialY;
         yoffset = 120;
         velocity = Vector2.Zero;
+        active = true;
+        visible = true;
     }
 
     public override void Update(GameTime gameTime)
     {
+        if (!active)
+            return;
+
         base.Update(gameTime);
         if (idleTime <= 0)
         {
@@ -50,12 +57,20 @@ class Sparky : AnimatedGameObject
                 velocity.Y = 300;
         }
 
-        CheckPlayerCollision();
+        CheckCollisions();
     }
 
-    public void CheckPlayerCollision()
+    public void CheckCollisions()
     {
         Player player = GameWorld.Find("player") as Player;
+
+        foreach (Projectile projectile in player.Projectiles)
+            if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
+            {
+                visible = false;
+                active = false;
+            }
+
         if (CollidesWith(player) && idleTime <= 0.0f)
             player.Die(false);
     }

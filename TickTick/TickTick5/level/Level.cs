@@ -46,11 +46,11 @@ partial class Level : GameObjectList
     {
         get
         {
-            SpriteGameObject exitObj = this.Find("exit") as SpriteGameObject;
-            Player player = this.Find("player") as Player;
+            SpriteGameObject exitObj = Find("exit") as SpriteGameObject;
+            Player player = Find("player") as Player;
             if (!exitObj.CollidesWith(player))
                 return false;
-            GameObjectList waterdrops = this.Find("waterdrops") as GameObjectList;
+            GameObjectList waterdrops = Find("waterdrops") as GameObjectList;
             foreach (GameObject d in waterdrops.Objects)
                 if (d.Visible)
                     return false;
@@ -62,8 +62,8 @@ partial class Level : GameObjectList
     {
         get
         {
-            TimerGameObject timer = this.Find("timer") as TimerGameObject;
-            Player player = this.Find("player") as Player;
+            TimerGameObject timer = Find("timer") as TimerGameObject;
+            Player player = Find("player") as Player;
             return !player.IsAlive || timer.GameOver;
         }
     }

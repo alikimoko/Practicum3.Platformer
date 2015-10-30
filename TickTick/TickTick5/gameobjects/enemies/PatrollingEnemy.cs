@@ -4,6 +4,7 @@ using System;
 class PatrollingEnemy : AnimatedGameObject
 {
     protected float waitTime;
+    private bool active;
 
     public PatrollingEnemy() : base(0,"", true)
     {
@@ -11,10 +12,14 @@ class PatrollingEnemy : AnimatedGameObject
         velocity.X = 120;
         LoadAnimation("Sprites/Flame/spr_flame@9", "default", true, 0.1f);
         PlayAnimation("default");
+        active = true;
     }
 
     public override void Update(GameTime gameTime)
     {
+        if (!active)
+            return;
+
         base.Update(gameTime);
         if (waitTime > 0)
         {
@@ -37,12 +42,20 @@ class PatrollingEnemy : AnimatedGameObject
                 velocity.X = 0.0f;
             }
         }
-        CheckPlayerCollision();
+        CheckCollisions();
     }
 
-    public void CheckPlayerCollision()
+    public void CheckCollisions()
     {
         Player player = GameWorld.Find("player") as Player;
+
+        foreach (Projectile projectile in player.Projectiles)
+            if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
+            {
+                visible = false;
+                active = false;
+            }
+        
         if (CollidesWith(player))
             player.Die(false);
     }
@@ -53,5 +66,11 @@ class PatrollingEnemy : AnimatedGameObject
         velocity.X = 120;
         if (Mirror)
             velocity.X = -velocity.X;
+    }
+
+    public override void Reset()
+    {
+        base.Reset();
+        active = true;
     }
 }

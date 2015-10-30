@@ -33,16 +33,26 @@ class Rocket : AnimatedGameObject
         }
         Visible = true;
         velocity.X = Mirror ? -600 : 600;
-        CheckPlayerCollision();
+        CheckCollisions();
+
         // check if we are outside the screen
-        Rectangle screenBox = new Rectangle(0, 0, GameEnvironment.Screen.X, GameEnvironment.Screen.Y);
-        if (!screenBox.Intersects(BoundingBox))
+        Level level = parent.Parent as Level; // level > enemies > rocket
+        Rectangle levelBox = new Rectangle(0, 0, level.Width, level.Height);
+        if (!levelBox.Intersects(BoundingBox))
             Reset();
     }
 
-    public void CheckPlayerCollision()
+    public void CheckCollisions()
     {
         Player player = GameWorld.Find("player") as Player;
+
+        foreach (Projectile projectile in player.Projectiles)
+            if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
+            {
+                Reset();
+                projectile.Hit = true;
+            }
+
         if (CollidesWith(player))
             player.Die(false);
     }

@@ -68,7 +68,11 @@ partial class Player : AnimatedGameObject
         base.Update(gameTime);
 
         foreach (Projectile projectile in projectiles)
+        {
             projectile.Update(gameTime);
+            if (projectile.Hit)
+                projectile.Active = false;
+        }
 
         if (!finished && isAlive)
         {
@@ -133,14 +137,13 @@ partial class Player : AnimatedGameObject
     }
 
     public bool IsAlive
-    {
-        get { return isAlive; }
-    }
+    { get { return isAlive; } }
 
     public bool Finished
-    {
-        get { return finished; }
-    }
+    { get { return finished; } }
+
+    public List<Projectile> Projectiles
+    { get { return projectiles; } }
 
     public void LevelFinished()
     {
@@ -154,5 +157,6 @@ partial class Player : AnimatedGameObject
     {
         Projectile projectile = new Projectile(position, Mirror);
         projectiles.Add(projectile);
+        projectile.Parent = this;
     }
 }
