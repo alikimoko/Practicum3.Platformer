@@ -91,5 +91,5 @@ public class SpriteSheet
 
     /// <summary>Get the number of sprites in the sprite sheet</summary>
     public int NumberSheetElements
-    { get { return this.sheetColumns * this.sheetRows; } }
+    { get { return sheetColumns * sheetRows; } }
 }

@@ -11,6 +11,12 @@ public class AnimatedGameObject : SpriteGameObject
         animations = new Dictionary<string, Animation>();
     }
 
+    public void LoadAnimation(string assetname, string id, bool looping, int fps = 10)
+    {
+        Animation anim = new Animation(assetname, looping, fps);
+        animations[id] = anim;
+    }
+
     public void LoadAnimation(string assetname, string id, bool looping, 
                               float frametime = 0.1f)
     {

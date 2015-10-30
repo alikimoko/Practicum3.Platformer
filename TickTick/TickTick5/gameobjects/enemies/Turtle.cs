@@ -7,8 +7,8 @@ class Turtle : AnimatedGameObject
 
     public Turtle() : base(0, "", true)
     {
-        LoadAnimation("Sprites/Turtle/spr_sneeze@9", "sneeze", false);
-        LoadAnimation("Sprites/Turtle/spr_idle", "idle", true);
+        LoadAnimation("Sprites/Turtle/spr_sneeze@9", "sneeze", false, 0.1f);
+        LoadAnimation("Sprites/Turtle/spr_idle", "idle", true, 0.1f);
         PlayAnimation("idle");
         Reset();
     }

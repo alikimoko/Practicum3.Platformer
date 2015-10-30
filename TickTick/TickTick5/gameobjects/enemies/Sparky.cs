@@ -9,8 +9,8 @@ class Sparky : AnimatedGameObject
 
     public Sparky(float initialY) : base(0,"", true)
     {
-        LoadAnimation("Sprites/Sparky/spr_electrocute@6x5", "electrocute", false);
-        LoadAnimation("Sprites/Sparky/spr_idle", "idle", true);
+        LoadAnimation("Sprites/Sparky/spr_electrocute@6x5", "electrocute", false, 0.1f);
+        LoadAnimation("Sprites/Sparky/spr_idle", "idle", true, 0.1f);
         PlayAnimation("idle");
         this.initialY = initialY;
         Reset();
