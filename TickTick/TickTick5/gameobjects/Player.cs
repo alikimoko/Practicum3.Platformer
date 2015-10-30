@@ -55,8 +55,8 @@ partial class Player : AnimatedGameObject
             Mirror = velocity.X < 0;
         if ((inputHelper.KeyPressed(Keys.Up) || inputHelper.KeyPressed(Keys.W) || inputHelper.ControlerButtonPressed(Buttons.DPadUp) || inputHelper.ControlerButtonPressed(Buttons.A)) && isOnTheGround)
             Jump();
-        if (inputHelper.KeyPressed(Keys.Space))
-        {   Shoot();}
+        if (inputHelper.KeyPressed(Keys.Space) || inputHelper.ControlerButtonPressed(Buttons.X))
+            Shoot();
     }
 
     public override void Update(GameTime gameTime)
