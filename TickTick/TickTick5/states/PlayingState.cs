@@ -87,6 +87,7 @@ class PlayingState : IGameLoopObject
         {
             CurrentLevelIndex++;
             levels[currentLevelIndex].Locked = false;
+            GameEnvironment.ActiveCamera = levels[currentLevelIndex].LevelCamera;
         }
         WriteLevelsStatus(Content.RootDirectory + "/Levels/levels_status.txt");
     }
