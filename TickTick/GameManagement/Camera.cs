@@ -81,12 +81,12 @@ public class Camera
         {
             if (centre.Y < movingRectangle.Y)
             {
-                tempVector.Y = (movingRectangle.Y - centre.Y);
+                tempVector.Y -= (movingRectangle.Y - centre.Y);
                 change = true;
             }
             else if (centre.Y > movingRectangle.Bottom)
             {
-                tempVector.Y = (centre.Y - movingRectangle.Bottom);
+                tempVector.Y += (centre.Y - movingRectangle.Bottom);
                 change = true;
             }
         }
