@@ -41,19 +41,19 @@ public class Camera
         get { return position; }
         set
         {
-            Vector2 tempVector = new Vector2(MathHelper.Clamp(value.X, 0, rightBoundary), MathHelper.Clamp(value.X, 0, lowerBoundary));
-
+            Vector2 tempVector = new Vector2(MathHelper.Clamp(value.X, 0, rightBoundary), MathHelper.Clamp(value.Y, 0, lowerBoundary));
+            
             if (moveHorizontal && tempVector.X != position.X)
             {
                 position.X = tempVector.X;
                 cameraOutline.X = (int)tempVector.X;
-                movingRectangle.X = (int)(position.X + (cameraOutline.Width - moveableWidth) / 2);
+                movingRectangle.X = cameraOutline.Center.X - moveableWidth / 2;
             }
             if (moveVertical && tempVector.Y != position.Y)
             {
                 position.Y = tempVector.Y;
                 cameraOutline.Y = (int)tempVector.Y;
-                movingRectangle.Y = (int)(position.Y + (cameraOutline.Height - moveableHeight) / 2);
+                movingRectangle.Y = cameraOutline.Center.Y - moveableHeight / 2;
             }
         }
     }

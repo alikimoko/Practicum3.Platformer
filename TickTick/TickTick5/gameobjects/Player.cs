@@ -86,7 +86,7 @@ partial class Player : AnimatedGameObject
         }
 
         DoPhysics();
-        GameEnvironment.ActiveCamera.moveCamera(GlobalPosition + Center);
+        GameEnvironment.ActiveCamera.moveCamera(Position + Center);
     }
 
     public void Explode()
@@ -97,7 +97,7 @@ partial class Player : AnimatedGameObject
         exploded = true;
         velocity = Vector2.Zero;
         position.Y += 15;
-        this.PlayAnimation("explode");
+        PlayAnimation("explode");
     }
 
     public void Die(bool falling)
