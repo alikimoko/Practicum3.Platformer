@@ -4,7 +4,8 @@ using System;
 class PatrollingEnemy : AnimatedGameObject
 {
     protected float waitTime;
-    private bool active;
+    protected bool active;
+    protected int hp;
 
     public PatrollingEnemy() : base(0,"", true)
     {
@@ -13,6 +14,7 @@ class PatrollingEnemy : AnimatedGameObject
         LoadAnimation("Sprites/Flame/spr_flame@9", "default", true, 0.1f);
         PlayAnimation("default");
         active = true;
+        hp = 10;
     }
 
     public override void Update(GameTime gameTime)
@@ -52,9 +54,13 @@ class PatrollingEnemy : AnimatedGameObject
         foreach (Projectile projectile in player.Projectiles)
             if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
             {
-                visible = false;
-                active = false;
                 projectile.Hit = true;
+                hp--;
+                if (hp <= 0)
+                {
+                    visible = false;
+                    active = false;
+                }
             }
         
         if (CollidesWith(player))
@@ -73,5 +79,6 @@ class PatrollingEnemy : AnimatedGameObject
     {
         base.Reset();
         active = true;
+        hp = 3;
     }
 }

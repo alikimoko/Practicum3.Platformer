@@ -6,7 +6,8 @@ class Sparky : AnimatedGameObject
     protected float idleTime;
     protected float yoffset;
     protected float initialY;
-    private bool active;
+    protected bool active;
+    protected int hp;
 
     public Sparky(float initialY) : base(0,"", true)
     {
@@ -15,6 +16,7 @@ class Sparky : AnimatedGameObject
         PlayAnimation("idle");
         this.initialY = initialY;
         active = true;
+        hp = 10;
         Reset();
     }
 
@@ -24,8 +26,12 @@ class Sparky : AnimatedGameObject
         position.Y = initialY;
         yoffset = 120;
         velocity = Vector2.Zero;
-        active = true;
-        visible = true;
+        if (hp <= 0)
+        {
+            active = true;
+            visible = true;
+            hp = 10;
+        }
     }
 
     public override void Update(GameTime gameTime)
@@ -67,9 +73,13 @@ class Sparky : AnimatedGameObject
         foreach (Projectile projectile in player.Projectiles)
             if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
             {
-                visible = false;
-                active = false;
                 projectile.Hit = true;
+                hp--;
+                if (hp <= 0)
+                {
+                    visible = false;
+                    active = false;
+                }
             }
 
         if (CollidesWith(player) && idleTime <= 0.0f)

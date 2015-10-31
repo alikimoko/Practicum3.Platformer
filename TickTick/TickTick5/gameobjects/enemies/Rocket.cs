@@ -4,6 +4,7 @@ class Rocket : AnimatedGameObject
 {
     protected double spawnTime;
     protected Vector2 startPosition;
+    protected int hp;
     
     public Rocket(bool moveToLeft, Vector2 startPosition) : base (0,"", true)
     {
@@ -20,7 +21,7 @@ class Rocket : AnimatedGameObject
         position = startPosition;
         velocity = Vector2.Zero;
         spawnTime = GameEnvironment.Random.NextDouble() * 4 + 1;
-        
+        hp = 3;
     }
 
     public override void Update(GameTime gameTime)
@@ -49,8 +50,10 @@ class Rocket : AnimatedGameObject
         foreach (Projectile projectile in player.Projectiles)
             if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
             {
-                Reset();
                 projectile.Hit = true;
+                hp--;
+                if (hp <= 0)
+                    Reset();
             }
 
         if (CollidesWith(player))
