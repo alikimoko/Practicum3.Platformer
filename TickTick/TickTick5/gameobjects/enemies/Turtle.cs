@@ -43,12 +43,17 @@ class Turtle : AnimatedGameObject
             }
         }
 
-        CheckPlayerCollision();
+        CheckCollisions();
     }
 
-    public void CheckPlayerCollision()
+    public void CheckCollisions()
     {
         Player player = GameWorld.Find("player") as Player;
+
+        foreach (Projectile projectile in player.Projectiles)
+            if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
+                projectile.Hit = true;
+
         if (!CollidesWith(player))
             return;
         if (sneezeTime > 0)

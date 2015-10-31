@@ -69,6 +69,7 @@ class Sparky : AnimatedGameObject
             {
                 visible = false;
                 active = false;
+                projectile.Hit = true;
             }
 
         if (CollidesWith(player) && idleTime <= 0.0f)

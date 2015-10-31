@@ -12,8 +12,6 @@ partial class Player : AnimatedGameObject
     protected bool exploded;
     protected bool finished;
     protected bool walkingOnIce, walkingOnHot;
-
-    protected List<Projectile> projectiles = new List<Projectile>();
     
     public Player(Vector2 start) : base(2, "player", true)
     {
@@ -67,13 +65,6 @@ partial class Player : AnimatedGameObject
     {
         base.Update(gameTime);
 
-        foreach (Projectile projectile in projectiles)
-        {
-            projectile.Update(gameTime);
-            if (projectile.Hit)
-                projectile.Active = false;
-        }
-
         if (!finished && isAlive)
         {
             if (isOnTheGround)
@@ -99,14 +90,6 @@ partial class Player : AnimatedGameObject
 
         DoPhysics();
         GameEnvironment.ActiveCamera.moveCamera(Position + Center);
-    }
-
-    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-    {
-        base.Draw(gameTime, spriteBatch);
-
-        foreach (Projectile projectile in projectiles)
-            projectile.Draw(gameTime, spriteBatch);
     }
 
     public void Explode()
@@ -143,7 +126,13 @@ partial class Player : AnimatedGameObject
     { get { return finished; } }
 
     public List<Projectile> Projectiles
-    { get { return projectiles; } }
+    {
+        get
+        {
+            Level level = parent as Level;
+            return level.Projectiles;
+        }
+    }
 
     public void LevelFinished()
     {
@@ -155,8 +144,11 @@ partial class Player : AnimatedGameObject
 
     public void Shoot()
     {
-        Projectile projectile = new Projectile(position, Mirror);
-        projectiles.Add(projectile);
-        projectile.Parent = this;
+        Level level = parent as Level;
+        if (level.activeProjectiles() < 5)
+        {
+            Projectile projectile = new Projectile(position, Mirror);
+            Projectiles.Add(projectile);
+        }
     }
 }

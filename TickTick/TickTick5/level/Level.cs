@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using System.Collections.Generic;
 
 partial class Level : GameObjectList
 {
@@ -6,6 +7,8 @@ partial class Level : GameObjectList
     protected Button quitButton;
     protected Camera levelCamera;
     protected int height, width;
+
+    protected List<Projectile> projectiles = new List<Projectile>();
 
     public Level(int levelIndex)
     {
@@ -88,5 +91,8 @@ partial class Level : GameObjectList
 
     public int Height
     { get { return height * 55; } }
+
+    public List<Projectile> Projectiles
+    { get { return projectiles; } }
 }
 

@@ -54,6 +54,7 @@ class PatrollingEnemy : AnimatedGameObject
             {
                 visible = false;
                 active = false;
+                projectile.Hit = true;
             }
         
         if (CollidesWith(player))

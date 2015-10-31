@@ -61,8 +61,8 @@ public class GameObjectList : GameObject
 
     public override void Update(GameTime gameTime)
     {
-        foreach (GameObject obj in gameObjects)
-            obj.Update(gameTime);
+        for (int i = gameObjects.Count - 1; i >= 0; i--)
+            gameObjects[i].Update(gameTime);
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

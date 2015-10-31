@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 partial class Level : GameObjectList
 {
@@ -8,7 +9,7 @@ partial class Level : GameObjectList
         base.HandleInput(inputHelper);
         if (quitButton.Pressed)
         {
-            this.Reset();
+            Reset();
             GameEnvironment.GameStateManager.SwitchTo("levelMenu");
         }      
     }
@@ -17,8 +18,8 @@ partial class Level : GameObjectList
     {
         base.Update(gameTime);
 
-        TimerGameObject timer = this.Find("timer") as TimerGameObject;
-        Player player = this.Find("player") as Player;
+        TimerGameObject timer = Find("timer") as TimerGameObject;
+        Player player = Find("player") as Player;
 
         // check if we died
         if (!player.IsAlive)
@@ -29,17 +30,44 @@ partial class Level : GameObjectList
             player.Explode();
                        
         // check if we won
-        if (this.Completed && timer.Running)
+        if (Completed && timer.Running)
         {
             player.LevelFinished();
             timer.Running = false;
         }
+
+        foreach (Projectile projectile in projectiles)
+            projectile.Update(gameTime, Find("tiles") as TileField);
+
+        // clear unactive projectiles (no memory dump)
+        projectiles.RemoveAll(unActiveProjectile);
+
+    }
+
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        base.Draw(gameTime, spriteBatch);
+
+        foreach (Projectile projectile in projectiles)
+            projectile.Draw(gameTime, spriteBatch);
     }
 
     public override void Reset()
     {
         base.Reset();
-        VisibilityTimer hintTimer = this.Find("hintTimer") as VisibilityTimer;
+        VisibilityTimer hintTimer = Find("hintTimer") as VisibilityTimer;
         hintTimer.StartVisible();
     }
+
+    public int activeProjectiles()
+    {
+        int num = 0;
+        foreach (Projectile projectile in projectiles)
+            if (projectile.Active)
+                num++;
+        return num;
+    }
+
+    private bool unActiveProjectile(Projectile obj)
+    { return !obj.Active; }
 }
