@@ -79,6 +79,6 @@ class PatrollingEnemy : AnimatedGameObject
     {
         base.Reset();
         active = true;
-        hp = 3;
+        hp = 10;
     }
 }

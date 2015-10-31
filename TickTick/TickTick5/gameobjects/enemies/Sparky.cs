@@ -16,7 +16,6 @@ class Sparky : AnimatedGameObject
         PlayAnimation("idle");
         this.initialY = initialY;
         active = true;
-        hp = 10;
         Reset();
     }
 
