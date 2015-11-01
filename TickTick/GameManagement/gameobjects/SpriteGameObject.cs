@@ -16,8 +16,7 @@ public class SpriteGameObject : GameObject
     /// <param name="id">The ID to refer to the object.</param>
     /// <param name="sheetIndex">The index of the sprite in a sprite string or sheet.</param>
     /// <param name="paralax">The paralax mode that applies to this object.</param>
-    public SpriteGameObject(string assetname, int layer = 0, string id = "", int sheetIndex = 0, Backgroundlayer paralax = Backgroundlayer.solid)
-        : base(layer, id)
+    public SpriteGameObject(string assetname, int layer = 0, string id = "", int sheetIndex = 0, Backgroundlayer paralax = Backgroundlayer.solid) : base(layer, id)
     {
         if (assetname != "")
             sprite = new SpriteSheet(assetname, sheetIndex);
@@ -31,7 +30,7 @@ public class SpriteGameObject : GameObject
     {
         if (!visible || sprite == null)
             return;
-        sprite.Draw(spriteBatch, GlobalPosition - ((GameEnvironment.ActiveCamera != null&& (int)paralax != 0) ? GameEnvironment.ActiveCamera.Position / (int)paralax : Vector2.Zero), origin);
+        sprite.Draw(spriteBatch, GlobalPosition - ((GameEnvironment.ActiveCamera != null && paralax != 0) ? GameEnvironment.ActiveCamera.Position / (int)paralax : Vector2.Zero), origin);
     }
 
     /// <summary>Get the sprite for this object.</summary>
@@ -74,6 +73,10 @@ public class SpriteGameObject : GameObject
             return new Rectangle(left, top, Width, Height);
         }
     }
+
+    /// <summary>Get the paralax mode for the object.</summary>
+    public Backgroundlayer Paralax
+    { get { return paralax; } }
 
     /// <summary>Is this object colliding with a given object?</summary>
     /// <param name="obj">The object to check collision with.</param>
