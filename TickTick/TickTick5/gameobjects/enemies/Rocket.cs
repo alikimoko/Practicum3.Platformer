@@ -8,7 +8,7 @@ class Rocket : AnimatedGameObject
     protected const int maxhp = 3;
     protected int hp;
     
-    public Rocket(bool moveToLeft, Vector2 startPosition) : base (0,"", true)
+    public Rocket(bool moveToLeft, Vector2 startPosition) : base (0,"", Backgroundlayer.foreground)
     {
         LoadAnimation("Sprites/Rocket/spr_rocket@3", "default", true, 0.2f);
         PlayAnimation("default");

@@ -9,7 +9,7 @@ class PatrollingEnemy : AnimatedGameObject
     protected const int maxhp = 5;
     protected int hp;
 
-    public PatrollingEnemy() : base(0,"", true)
+    public PatrollingEnemy() : base(0,"", Backgroundlayer.foreground)
     {
         waitTime = 0.0f;
         velocity.X = 120;

@@ -7,7 +7,7 @@ public class SpriteGameObject : GameObject
     protected SpriteSheet sprite;
     protected Vector2 origin;
     protected bool moving;
-    public static enum Backgroundlayer { solid = 0 , foreground = 1, middle = 5 , background = 25 };
+    public enum Backgroundlayer { solid = 0 , foreground = 1, middle = 10 , background = 25 };
     protected Backgroundlayer paralax;
 
     /// <summary>Create a new sprite game object.</summary>

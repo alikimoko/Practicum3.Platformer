@@ -5,7 +5,7 @@ class Turtle : AnimatedGameObject
     protected float sneezeTime;
     protected float idleTime;
 
-    public Turtle() : base(0, "", true)
+    public Turtle() : base(0, "", Backgroundlayer.foreground)
     {
         LoadAnimation("Sprites/Turtle/spr_sneeze@9", "sneeze", false, 0.1f);
         LoadAnimation("Sprites/Turtle/spr_idle", "idle", true, 0.1f);

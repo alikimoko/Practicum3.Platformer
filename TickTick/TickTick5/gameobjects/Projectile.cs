@@ -7,7 +7,7 @@ class Projectile : AnimatedGameObject
     protected bool active;
     protected bool mirrored;
 
-    public Projectile(Vector2 playerposition, bool mirrored) : base(0 , "", true)
+    public Projectile(Vector2 playerposition, bool mirrored) : base(0 , "", Backgroundlayer.foreground)
     {
         this.mirrored = mirrored;
         velocity.X = mirrored ? -750 : 750;

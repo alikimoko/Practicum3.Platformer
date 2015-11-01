@@ -6,7 +6,7 @@ class WaterDrop : SpriteGameObject
 {
     protected float bounce;
 
-    public WaterDrop(int layer=0, string id="") : base("Sprites/spr_water", layer, id, 0, true) { }
+    public WaterDrop(int layer=0, string id="") : base("Sprites/spr_water", layer, id, 0, Backgroundlayer.foreground) { }
 
     public override void Update(GameTime gameTime)
     {

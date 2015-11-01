@@ -10,7 +10,7 @@ class Sparky : AnimatedGameObject
     protected const int maxhp = 5;
     protected int hp;
 
-    public Sparky(float initialY) : base(0,"", true)
+    public Sparky(float initialY) : base(0,"", Backgroundlayer.foreground)
     {
         LoadAnimation("Sprites/Sparky/spr_electrocute@6x5", "electrocute", false, 0.1f);
         LoadAnimation("Sprites/Sparky/spr_idle", "idle", true, 0.1f);

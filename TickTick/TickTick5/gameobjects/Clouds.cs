@@ -8,10 +8,10 @@ class Clouds : GameObjectList
         : base(layer, id)
     {
         this.level = level;
-
+        
         for (int i = 0; i < 3; i++)
         {
-            SpriteGameObject cloud = new SpriteGameObject("Backgrounds/spr_cloud_" + (GameEnvironment.Random.Next(5) + 1), 2, "", 0, true);
+            SpriteGameObject cloud = new SpriteGameObject("Backgrounds/spr_cloud_" + (GameEnvironment.Random.Next(5) + 1), 2, "", 0, SpriteGameObject.Backgroundlayer.middle);
             cloud.Position = new Vector2((float)GameEnvironment.Random.NextDouble() * level.Width - cloud.Width / 2, (float)GameEnvironment.Random.NextDouble() * level.Height - cloud.Height / 2);
             cloud.Velocity = new Vector2((float)((GameEnvironment.Random.NextDouble() * 2) - 1) * 20, 0);
             Add(cloud);

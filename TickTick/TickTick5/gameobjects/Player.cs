@@ -17,7 +17,7 @@ partial class Player : AnimatedGameObject
     
     /// <summary>Create a new player.</summary>
     /// <param name="start">The players starting position.</param>
-    public Player(Vector2 start) : base(2, "player", true)
+    public Player(Vector2 start) : base(2, "player", Backgroundlayer.foreground)
     {
         LoadAnimation("Sprites/Player/spr_idle", "idle", true, 0.1f); 
         LoadAnimation("Sprites/Player/spr_run@13", "run", true, 0.05f);
