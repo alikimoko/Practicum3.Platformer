@@ -4,7 +4,7 @@ public class Collision
 {
     /// <summary>Are the two riven rectangles colliding?</summary>
     public static bool IsColliding(Rectangle rectA, Rectangle rectB)
-    { return rectA.Contains(rectB) || rectA.Intersects(rectB); }
+    { return rectA.Intersects(rectB); }
 
     /// <summary>Get the depth a rectangle is inside another rectangle.</summary>
     public static Vector2 CalculateIntersectionDepth(Rectangle rectA, Rectangle rectB)
