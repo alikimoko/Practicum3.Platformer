@@ -4,8 +4,9 @@ class Clouds : GameObjectList
 {
     private Level level;
 
-    public Clouds(int layer = 0, string id = "", Level level = null)
-        : base(layer, id)
+    /// <summary>Add the cloud layer.</summary>
+    /// <param name="level">The level the cloud layer is in.</param>
+    public Clouds(int layer = 0, string id = "", Level level = null) : base(layer, id)
     {
         this.level = level;
 
@@ -18,6 +19,7 @@ class Clouds : GameObjectList
         }
     }
 
+    /// <summary>Update the clouds.</summary>
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);

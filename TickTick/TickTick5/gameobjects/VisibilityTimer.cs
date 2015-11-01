@@ -6,14 +6,16 @@ class VisibilityTimer : GameObject
     protected float timeleft;
     protected float totaltime;
 
-    public VisibilityTimer(GameObject target, int layer=0, string id = "")
-        : base(layer, id)
+    /// <summary>Create a visibility timer.</summary>
+    /// <param name="target">The object the timer belongs to.</param>
+    public VisibilityTimer(GameObject target, int layer=0, string id = "") : base(layer, id)
     {
         totaltime = 5;
         timeleft = 0;
         this.target = target;
     }
 
+    /// <summary>Update the timer.</summary>
     public override void Update(GameTime gameTime)
     {
         timeleft -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -21,6 +23,7 @@ class VisibilityTimer : GameObject
             target.Visible = false;
     }
 
+    /// <summary>Start the timer.</summary>
     public void StartVisible()
     {
         timeleft = totaltime;

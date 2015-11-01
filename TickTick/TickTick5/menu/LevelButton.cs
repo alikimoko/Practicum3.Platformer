@@ -11,8 +11,7 @@ class LevelButton : GameObjectList
     /// <summary>Create a level button.</summary>
     /// <param name="levelIndex">The index of the level.</param>
     /// <param name="level">The level to start.</param>
-    public LevelButton(int levelIndex, Level level, int layer = 0, string id = "")
-        : base(layer, id)
+    public LevelButton(int levelIndex, Level level, int layer = 0, string id = "") : base(layer, id)
     {
         this.levelIndex = levelIndex;
         this.level = level;

@@ -7,6 +7,9 @@ class Projectile : AnimatedGameObject
     protected bool active;
     protected bool mirrored;
 
+    /// <summary>Create a new projectile.</summary>
+    /// <param name="playerposition">The position of the player.</param>
+    /// <param name="mirrored">Should the projectile go right?</param>
     public Projectile(Vector2 playerposition, bool mirrored) : base(0 , "", true)
     {
         this.mirrored = mirrored;
@@ -19,12 +22,15 @@ class Projectile : AnimatedGameObject
         Mirror = mirrored;
     }
 
+    /// <summary>Update the projectile.</summary>
+    /// <param name="tiles">The field of the level.</param>
     public void Update(GameTime gameTime, TileField tiles)
     {
         if (!active)
             return;
         base.Update(gameTime);
 
+        // check bounds 
         int x_floor = (int)position.X / tiles.CellWidth;
         int y_floor = (int)position.Y / tiles.CellHeight;
         for (int y = y_floor - 1; y <= y_floor + 1; y++)
@@ -43,13 +49,15 @@ class Projectile : AnimatedGameObject
             active = false;
     }
 
+    /// <summary>Draw the projectile.</summary>
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         base.Draw(gameTime, spriteBatch);
-        if (hit)
+        if (hit) // make sure you see it hit.
             visible = false;
     }
 
+    /// <summary>Is the projectile active?</summary>
     public bool Active
     {
         get { return active; }
