@@ -12,8 +12,7 @@ public class TextGameObject : GameObject
     /// <param name="assetname">The name of the sprite font to use.</param>
     /// <param name="layer">The layer to draw the text in.</param>
     /// <param name="id">The reference ID for this text object.</param>
-    public TextGameObject(string assetname, int layer = 0, string id = "")
-        : base(layer, id)
+    public TextGameObject(string assetname, int layer = 0, string id = "") : base(layer, id)
     {
         spriteFont = GameEnvironment.AssetManager.Content.Load<SpriteFont>(assetname);
         color = Color.White;
