@@ -6,7 +6,8 @@ using Microsoft.Xna.Framework;
 partial class Level : GameObjectList
 {
     private string path;
-
+    private int cellWidth;
+    private int cellHeight;
     /// <summary>Load the level.</summary>
     public void LoadTiles(string path)
     {
@@ -47,7 +48,11 @@ partial class Level : GameObjectList
         Add(tiles);
         // tile dimentions
         tiles.CellWidth = 72;
+        cellWidth = 72;
+
         tiles.CellHeight = 55;
+        cellHeight = 55;
+        
         for (int x = 0; x < width; ++x)
             for (int y = 0; y < height; ++y)
             {
