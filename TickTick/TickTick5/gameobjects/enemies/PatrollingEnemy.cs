@@ -5,6 +5,7 @@ class PatrollingEnemy : AnimatedGameObject
 {
     protected float waitTime;
     protected bool active;
+    protected const int maxhp = 5;
     protected int hp;
 
     public PatrollingEnemy() : base(0,"", true)
@@ -13,8 +14,7 @@ class PatrollingEnemy : AnimatedGameObject
         velocity.X = 120;
         LoadAnimation("Sprites/Flame/spr_flame@9", "default", true, 0.1f);
         PlayAnimation("default");
-        active = true;
-        hp = 10;
+        Reset();
     }
 
     public override void Update(GameTime gameTime)
@@ -60,6 +60,7 @@ class PatrollingEnemy : AnimatedGameObject
                 {
                     visible = false;
                     active = false;
+                    return;
                 }
             }
         
@@ -79,6 +80,6 @@ class PatrollingEnemy : AnimatedGameObject
     {
         base.Reset();
         active = true;
-        hp = 10;
+        hp = maxhp;
     }
 }

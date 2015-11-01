@@ -16,6 +16,7 @@ class Projectile : AnimatedGameObject
         active = true;
         LoadAnimation("Sprites/ball-strip@15", "default", true, 15);
         PlayAnimation("default");
+        Mirror = mirrored;
     }
 
     public void Update(GameTime gameTime, TileField tiles)

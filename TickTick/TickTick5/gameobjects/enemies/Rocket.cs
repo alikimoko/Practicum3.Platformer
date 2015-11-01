@@ -4,6 +4,7 @@ class Rocket : AnimatedGameObject
 {
     protected double spawnTime;
     protected Vector2 startPosition;
+    protected const int maxhp = 3;
     protected int hp;
     
     public Rocket(bool moveToLeft, Vector2 startPosition) : base (0,"", true)
@@ -21,7 +22,7 @@ class Rocket : AnimatedGameObject
         position = startPosition;
         velocity = Vector2.Zero;
         spawnTime = GameEnvironment.Random.NextDouble() * 4 + 1;
-        hp = 3;
+        hp = maxhp;
     }
 
     public override void Update(GameTime gameTime)
@@ -45,6 +46,26 @@ class Rocket : AnimatedGameObject
 
     public void CheckCollisions()
     {
+        TileField tiles = GameWorld.Find("tiles") as TileField;
+        int x_floor = (int)position.X / tiles.CellWidth;
+        int y_floor = (int)position.Y / tiles.CellHeight;
+
+        for (int y = y_floor - 1; y <= y_floor + 1; ++y)
+            for (int x = x_floor - 1; x <= x_floor + 1; ++x)
+            {
+                TileType tileType = tiles.GetTileType(x, y);
+                if (tileType == TileType.Normal || tileType == TileType.Platform)
+                {
+                    Rectangle tileBounds = new Rectangle(x * tiles.CellWidth, y * tiles.CellHeight,
+                                                            tiles.CellWidth, tiles.CellHeight);
+                    if (tileBounds.Intersects(BoundingBox))
+                    {
+                        Reset();
+                        return;
+                    }
+                }
+            }
+
         Player player = GameWorld.Find("player") as Player;
 
         foreach (Projectile projectile in player.Projectiles)
@@ -53,7 +74,10 @@ class Rocket : AnimatedGameObject
                 projectile.Hit = true;
                 hp--;
                 if (hp <= 0)
+                {
                     Reset();
+                    return;
+                }
             }
 
         if (CollidesWith(player))

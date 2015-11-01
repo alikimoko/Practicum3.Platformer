@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 
 class Sparky : AnimatedGameObject
 {
@@ -7,6 +6,7 @@ class Sparky : AnimatedGameObject
     protected float yoffset;
     protected float initialY;
     protected bool active;
+    protected const int maxhp = 5;
     protected int hp;
 
     public Sparky(float initialY) : base(0,"", true)
@@ -29,7 +29,7 @@ class Sparky : AnimatedGameObject
         {
             active = true;
             visible = true;
-            hp = 10;
+            hp = maxhp;
         }
     }
 
@@ -78,6 +78,7 @@ class Sparky : AnimatedGameObject
                 {
                     visible = false;
                     active = false;
+                    return;
                 }
             }
 
