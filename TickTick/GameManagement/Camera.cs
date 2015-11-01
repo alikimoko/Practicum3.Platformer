@@ -9,10 +9,10 @@ public class Camera
     int rightBoundary, lowerBoundary;
 
     /// <summary>Create a new camera. NOTE: call moveCamera directly after this to align the camera</summary>
-    /// <param name="levelWidth"></param>
-    /// <param name="levelHeigth"></param>
-    /// <param name="moveableHeight"></param>
-    /// <param name="moveableWidth"></param>
+    /// <param name="levelWidth">The width of the level in pixels.</param>
+    /// <param name="levelHeigth">The height of the level in pixels.</param>
+    /// <param name="moveableHeight">The height of the box in wich the tracking object can move freely.</param>
+    /// <param name="moveableWidth">The width of the box in wich the tracking object can move freely.</param>
     public Camera(int levelWidth, int levelHeigth, int moveableHeight = 200, int moveableWidth = 200)
     {
         moveHorizontal = levelWidth > GameEnvironment.Screen.X;
@@ -25,17 +25,23 @@ public class Camera
         calculateBoundary(levelWidth, levelHeigth);
     }
 
+    /// <summary>Set the camera movement bounds.</summary>
     private void calculateBoundary(int levelWidth, int levelHeigth)
     {
         rightBoundary = levelWidth - cameraOutline.Width;
         lowerBoundary = levelHeigth - cameraOutline.Height;
     }
 
+    /// <summary>Is horizontal scrolling enabled?</summary>
     public bool MoveHorizontal { get { return moveHorizontal; } }
+
+    /// <summary>Is vertical scrolling enabled?</summary>
     public bool MoveVertical { get { return moveVertical; } }
 
+    /// <summary>Get the outline of the camera.</summary>
     public Rectangle CameraOutline { get { return cameraOutline; } }
 
+    /// <summary>The position of the camera.</summary>
     public Vector2 Position
     {
         get { return position; }
@@ -58,6 +64,8 @@ public class Camera
         }
     }
 
+    /// <summary>Move the camera.</summary>
+    /// <param name="centre">The coördinates of the object to track.</param>
     public void moveCamera(Vector2 centre)
     {
         Vector2 tempVector = position;

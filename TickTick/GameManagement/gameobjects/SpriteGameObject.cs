@@ -15,6 +15,7 @@ public class SpriteGameObject : GameObject
     /// <param name="layer">The layer the object is in.</param>
     /// <param name="id">The ID to refer to the object.</param>
     /// <param name="sheetIndex">The index of the sprite in a sprite string or sheet.</param>
+    /// <param name="paralax">The paralax mode that applies to this object.</param>
     public SpriteGameObject(string assetname, int layer = 0, string id = "", int sheetIndex = 0, Backgroundlayer paralax = Backgroundlayer.solid)
         : base(layer, id)
     {
