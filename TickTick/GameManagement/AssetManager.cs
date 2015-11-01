@@ -58,7 +58,5 @@ public class AssetManager
 
     /// <summary>Get the current content manager.</summary>
     public ContentManager Content
-    {
-        get { return contentManager; }
-    }
+    { get { return contentManager; } }
 }
