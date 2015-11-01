@@ -93,7 +93,8 @@ class Rocket : AnimatedGameObject
 
         if (CollidesWith(player))
         {
-            if (player.BoundingBox.Y + Height * 0.3 < BoundingBox.Y && player.Velocity.Y>0)
+            Vector2 depth = Collision.CalculateIntersectionDepth(BoundingBox, player.BoundingBox);
+            if (player.BoundingBox.Y < BoundingBox.Y && player.Velocity.Y > 0 &&  depth.X > depth.Y )
             { velocity.Y = 600; player.Jump(); }
             else
             {
