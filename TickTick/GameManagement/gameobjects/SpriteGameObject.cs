@@ -7,20 +7,22 @@ public class SpriteGameObject : GameObject
     protected SpriteSheet sprite;
     protected Vector2 origin;
     protected bool moving;
+    public static enum Backgroundlayer { solid = 0 , foreground = 1, middle = 5 , background = 25 };
+    protected Backgroundlayer paralax;
 
     /// <summary>Create a new sprite game object.</summary>
     /// <param name="assetname">The name of the sprite file.</param>
     /// <param name="layer">The layer the object is in.</param>
     /// <param name="id">The ID to refer to the object.</param>
     /// <param name="sheetIndex">The index of the sprite in a sprite string or sheet.</param>
-    public SpriteGameObject(string assetname, int layer = 0, string id = "", int sheetIndex = 0, bool moving = false)
+    public SpriteGameObject(string assetname, int layer = 0, string id = "", int sheetIndex = 0, Backgroundlayer paralax = Backgroundlayer.solid)
         : base(layer, id)
     {
         if (assetname != "")
             sprite = new SpriteSheet(assetname, sheetIndex);
         else
             sprite = null;
-        this.moving = moving;
+        this.paralax = paralax;
     }    
 
     /// <summary>Draw this object.</summary>
@@ -28,7 +30,7 @@ public class SpriteGameObject : GameObject
     {
         if (!visible || sprite == null)
             return;
-        sprite.Draw(spriteBatch, GlobalPosition - ((GameEnvironment.ActiveCamera != null && moving) ? GameEnvironment.ActiveCamera.Position : Vector2.Zero), origin);
+        sprite.Draw(spriteBatch, GlobalPosition - ((GameEnvironment.ActiveCamera != null&& (int)paralax != 0) ? GameEnvironment.ActiveCamera.Position / (int)paralax : Vector2.Zero), origin);
     }
 
     /// <summary>Get the sprite for this object.</summary>
