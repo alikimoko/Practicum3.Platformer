@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 class Sparky : AnimatedGameObject
 {
@@ -65,6 +66,16 @@ class Sparky : AnimatedGameObject
         CheckCollisions();
     }
 
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        base.Draw(gameTime, spriteBatch);
+
+        if (visible && hp != maxhp)
+            DrawingHelper.DrawStatusBar(spriteBatch, GlobalPosition - new Vector2(0, 200) - GameEnvironment.ActiveCamera.Position,
+                                        new Vector2(100, 10), maxhp, hp,
+                                        new Color(255 - (int)(255 * (float)hp / maxhp), (int)(255 * (float)hp / maxhp), 0));
+    }
+
     public void CheckCollisions()
     {
         Player player = GameWorld.Find("player") as Player;
@@ -83,6 +94,6 @@ class Sparky : AnimatedGameObject
             }
 
         if (CollidesWith(player) && idleTime <= 0.0f)
-            player.Die(false);
+            player.LowerHP(2);
     }
 }

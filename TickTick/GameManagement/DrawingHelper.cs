@@ -25,6 +25,28 @@ public class DrawingHelper
         spriteBatch.Draw(pixel, new Rectangle(r.Left, r.Bottom, r.Width, bw), col); // Bottom
     }
 
+    /// <summary>Draws the value as a status bar.</summary>
+    /// <param name="barCentre">The coördinates of the centre of the bar if it were full.</param>
+    /// <param name="barSize">The width and height components of the bar if it were full.</param>
+    /// <param name="maxValue">The maximum value to be reached.</param>
+    /// <param name="currentValue">The current value.</param>
+    /// <param name="barColor">The color the bas should have.</param>
+    public static void DrawStatusBar(SpriteBatch spriteBatch, Vector2 barCentre, Vector2 barSize, float maxValue, float currentValue, Color barColor)
+    {
+        if (barSize.X > barSize.Y) // horizontal bar
+        { spriteBatch.Draw(pixel, new Rectangle((int)(barCentre.X - barSize.X / 2), (int)(barCentre.Y - barSize.Y / 2), (int)(barSize.X * currentValue / maxValue), (int)barSize.Y), barColor); }
+        else // vertical bar
+        { spriteBatch.Draw(pixel, new Rectangle((int)(barCentre.X - barSize.X / 2), (int)(barCentre.Y - barSize.Y / 2), (int)barSize.X, (int)(barSize.Y * currentValue / maxValue)), barColor); }
+    }
+
+    /// <summary>Draws the pecentage as a progress bar.</summary>
+    /// <param name="barCentre">The coördinates of the centre of the bar if it were 100%.</param>
+    /// <param name="barSize">The width and height components of the bar if it were 100%.</param>
+    /// <param name="currentValue">The current value in % (e.g. 0-1).</param>
+    /// <param name="barColor">The color the bas should have.</param>
+    public static void DrawProgressBar(SpriteBatch spriteBatch, Vector2 barCentre, Vector2 barSize, float currentValue, Color barColor)
+    { DrawStatusBar(spriteBatch, barCentre, barSize, 1, currentValue, barColor); }
+
     /// <summary>Draw a centered text line.</summary>
     /// <param name="font">The font to use.</param>
     /// <param name="fontColor">The color to draw the text in.</param>

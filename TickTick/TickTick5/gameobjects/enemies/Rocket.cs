@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 class Rocket : AnimatedGameObject
 {
@@ -44,6 +45,16 @@ class Rocket : AnimatedGameObject
             Reset();
     }
 
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        base.Draw(gameTime, spriteBatch);
+
+        if (visible && hp != maxhp)
+            DrawingHelper.DrawStatusBar(spriteBatch, GlobalPosition - new Vector2(0, 100) - GameEnvironment.ActiveCamera.Position,
+                                        new Vector2(100, 10), maxhp, hp,
+                                        new Color(255 - (int)(255 * (float)hp / maxhp), (int)(255 * (float)hp / maxhp), 0));
+    }
+
     public void CheckCollisions()
     {
         TileField tiles = GameWorld.Find("tiles") as TileField;
@@ -81,6 +92,9 @@ class Rocket : AnimatedGameObject
             }
 
         if (CollidesWith(player))
-            player.Die(false);
+        {
+            player.LowerHP(50);
+            Reset();
+        }
     }
 }

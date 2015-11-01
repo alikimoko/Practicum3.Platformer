@@ -12,6 +12,8 @@ partial class Player : AnimatedGameObject
     protected bool exploded;
     protected bool finished;
     protected bool walkingOnIce, walkingOnHot;
+    protected const int maxhp = 100;
+    protected int hp;
     
     public Player(Vector2 start) : base(2, "player", true)
     {
@@ -38,6 +40,7 @@ partial class Player : AnimatedGameObject
         walkingOnHot = false;
         PlayAnimation("idle");
         previousYPosition = BoundingBox.Bottom;
+        hp = maxhp;
     }
 
     public override void HandleInput(InputHelper inputHelper)
@@ -92,6 +95,16 @@ partial class Player : AnimatedGameObject
         GameEnvironment.ActiveCamera.moveCamera(Position + Center);
     }
 
+    public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
+    {
+        base.Draw(gameTime, spriteBatch);
+
+        if (visible && hp != maxhp && hp != 0)
+            DrawingHelper.DrawStatusBar(spriteBatch, GlobalPosition - new Vector2(0, 100) - GameEnvironment.ActiveCamera.Position,
+                                        new Vector2(100, 10), maxhp, hp,
+                                        new Color(255 - (int)(255 * (float)hp / maxhp), (int)(255 * (float)hp / maxhp), 0));
+    }
+
     public void Explode()
     {
         if (!isAlive || finished)
@@ -101,6 +114,16 @@ partial class Player : AnimatedGameObject
         velocity = Vector2.Zero;
         position.Y += 15;
         PlayAnimation("explode");
+    }
+
+    public void LowerHP(int HP)
+    {
+        hp -= HP;
+        if (hp <= 0)
+        {
+            hp = 0; // for drawing
+            Die(false);
+        }
     }
 
     public void Die(bool falling)
