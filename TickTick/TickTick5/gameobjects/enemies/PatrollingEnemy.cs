@@ -1,5 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using System;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 class PatrollingEnemy : AnimatedGameObject
@@ -9,6 +9,7 @@ class PatrollingEnemy : AnimatedGameObject
     protected const int maxhp = 5;
     protected int hp;
 
+    /// <summary>Create a new patrolling enemy (flame).</summary>
     public PatrollingEnemy() : base(0,"", Backgroundlayer.foreground)
     {
         waitTime = 0.0f;
@@ -18,6 +19,7 @@ class PatrollingEnemy : AnimatedGameObject
         Reset();
     }
 
+    /// <summary>Update the flame.</summary>
     public override void Update(GameTime gameTime)
     {
         if (!active)
@@ -32,6 +34,7 @@ class PatrollingEnemy : AnimatedGameObject
         }
         else
         {
+            // move bounds
             TileField tiles = GameWorld.Find("tiles") as TileField;
             float posX = BoundingBox.Left;
             if (!Mirror)
@@ -48,6 +51,7 @@ class PatrollingEnemy : AnimatedGameObject
         CheckCollisions();
     }
 
+    /// <summary>Draw the flame.</summary>
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         base.Draw(gameTime, spriteBatch);
@@ -58,10 +62,12 @@ class PatrollingEnemy : AnimatedGameObject
                                         new Color(255 - (int)(255 * (float)hp / maxhp), (int)(255 * (float)hp / maxhp), 0));
     }
 
+    /// <summary>Check and handle the collisions.</summary>
     public void CheckCollisions()
     {
         Player player = GameWorld.Find("player") as Player;
 
+        // projectile collisions
         foreach (Projectile projectile in player.Projectiles)
             if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
             {
@@ -74,11 +80,13 @@ class PatrollingEnemy : AnimatedGameObject
                     return;
                 }
             }
-        
+
+        // player collision
         if (CollidesWith(player))
             player.LowerHP(5);
     }
 
+    /// <summary>Turnand startmoving in the oposite direction.</summary>
     public void TurnAround()
     {
         Mirror = !Mirror;
@@ -87,6 +95,7 @@ class PatrollingEnemy : AnimatedGameObject
             velocity.X = -velocity.X;
     }
 
+    /// <summary>Reset the flame</summary>
     public override void Reset()
     {
         base.Reset();

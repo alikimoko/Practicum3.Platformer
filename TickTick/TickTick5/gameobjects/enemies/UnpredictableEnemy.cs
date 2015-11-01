@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 
 class UnpredictableEnemy : PatrollingEnemy
 {
+    /// <summary>Unpredictable updates.</summary>
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);

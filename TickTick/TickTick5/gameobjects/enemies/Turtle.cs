@@ -5,6 +5,7 @@ class Turtle : AnimatedGameObject
     protected float sneezeTime;
     protected float idleTime;
 
+    /// <summary>Create a net turtle.</summary>
     public Turtle() : base(0, "", Backgroundlayer.foreground)
     {
         LoadAnimation("Sprites/Turtle/spr_sneeze@9", "sneeze", false, 0.1f);
@@ -13,12 +14,14 @@ class Turtle : AnimatedGameObject
         Reset();
     }
 
+    /// <summary>Reset the turtle.</summary>
     public override void Reset()
     {
         sneezeTime = 0.0f;
         idleTime = 5.0f;
     }
 
+    /// <summary>Update the turtle.</summary>
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -46,6 +49,7 @@ class Turtle : AnimatedGameObject
         CheckCollisions();
     }
 
+    /// <summary>Check and handle the collisions.</summary>
     public void CheckCollisions()
     {
         Player player = GameWorld.Find("player") as Player;

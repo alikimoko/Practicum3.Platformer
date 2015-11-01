@@ -105,6 +105,7 @@ partial class Player : AnimatedGameObject
     {
         base.Draw(gameTime, spriteBatch);
 
+        // health bar
         if (visible && hp != maxhp && hp != 0)
             DrawingHelper.DrawStatusBar(spriteBatch, GlobalPosition - new Vector2(0, 100) - GameEnvironment.ActiveCamera.Position,
                                         new Vector2(100, 10), maxhp, hp,

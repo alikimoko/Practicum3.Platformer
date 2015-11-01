@@ -8,6 +8,9 @@ class Rocket : AnimatedGameObject
     protected const int maxhp = 3;
     protected int hp;
     
+    /// <summary>Create a new rocket.</summary>
+    /// <param name="moveToLeft">Is the rocket moving to the left?</param>
+    /// <param name="startPosition">The starting position of the rocket.</param>
     public Rocket(bool moveToLeft, Vector2 startPosition) : base (0,"", Backgroundlayer.foreground)
     {
         LoadAnimation("Sprites/Rocket/spr_rocket@3", "default", true, 0.2f);
@@ -17,6 +20,7 @@ class Rocket : AnimatedGameObject
         Reset();
     }
     
+    /// <summary>Reset the rocket.</summary>
     public override void Reset()
     {
         Visible = false;
@@ -26,6 +30,7 @@ class Rocket : AnimatedGameObject
         hp = maxhp;
     }
 
+    /// <summary>Update the rocket.</summary>
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -38,32 +43,39 @@ class Rocket : AnimatedGameObject
         velocity.X = Mirror ? -600 : 600;
         CheckCollisions();
 
-        // check if we are outside the screen
+        // check if we are outside the level
         Level level = parent.Parent as Level; // level > enemies > rocket
         Rectangle levelBox = new Rectangle(0, 0, level.Width, level.Height);
         if (!levelBox.Intersects(BoundingBox))
             Reset();
     }
 
+    /// <summary>Draw the rocket.</summary>
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         base.Draw(gameTime, spriteBatch);
 
+        // health bar
         if (visible && hp != maxhp)
             DrawingHelper.DrawStatusBar(spriteBatch, GlobalPosition - new Vector2(0, 100) - GameEnvironment.ActiveCamera.Position,
                                         new Vector2(100, 10), maxhp, hp,
                                         new Color(255 - (int)(255 * (float)hp / maxhp), (int)(255 * (float)hp / maxhp), 0));
     }
 
+    /// <summary>Check and handle the collisions.</summary>
     public void CheckCollisions()
     {
         TileField tiles = GameWorld.Find("tiles") as TileField;
         int x_floor = (int)position.X / tiles.CellWidth;
         int y_floor = (int)position.Y / tiles.CellHeight;
 
-        for (int y = y_floor - 1; y <= y_floor + 1; ++y)
+        // tile collisions
+        for (int y = y_floor - 2; y <= y_floor + 1; ++y)
             for (int x = x_floor - 1; x <= x_floor + 1; ++x)
             {
+                if (y < 0 || y >= tiles.Rows || x < 0 || x >= tiles.Columns)
+                    continue;
+
                 TileType tileType = tiles.GetTileType(x, y);
                 if (tileType == TileType.Normal || tileType == TileType.Platform)
                 {
@@ -79,6 +91,7 @@ class Rocket : AnimatedGameObject
 
         Player player = GameWorld.Find("player") as Player;
 
+        // projectile collisions
         foreach (Projectile projectile in player.Projectiles)
             if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
             {
@@ -91,6 +104,7 @@ class Rocket : AnimatedGameObject
                 }
             }
 
+        // player collision
         if (CollidesWith(player))
         {
             Vector2 depth = Collision.CalculateIntersectionDepth(BoundingBox, player.BoundingBox);
@@ -101,7 +115,6 @@ class Rocket : AnimatedGameObject
                 player.LowerHP(50);
                 Reset();
             }
-            
         }
     }
 }

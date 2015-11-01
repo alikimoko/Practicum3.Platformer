@@ -36,7 +36,7 @@ class LevelMenuState : GameObjectList
     {
         get
         {
-            foreach (GameObject obj in this.Objects)
+            foreach (GameObject obj in Objects)
             {
                 LevelButton levelButton = obj as LevelButton;
                 if (levelButton != null && levelButton.Pressed)

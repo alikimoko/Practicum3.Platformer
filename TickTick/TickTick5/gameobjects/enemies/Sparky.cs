@@ -10,6 +10,8 @@ class Sparky : AnimatedGameObject
     protected const int maxhp = 5;
     protected int hp;
 
+    /// <summary>Create a new sparky.</summary>
+    /// <param name="initialY">The y to place the sparky.</param>
     public Sparky(float initialY) : base(0,"", Backgroundlayer.foreground)
     {
         LoadAnimation("Sprites/Sparky/spr_electrocute@6x5", "electrocute", false, 0.1f);
@@ -20,6 +22,7 @@ class Sparky : AnimatedGameObject
         Reset();
     }
 
+    /// <summary>Reset sparky.</summary>
     public override void Reset()
     {
         idleTime = (float)GameEnvironment.Random.NextDouble() * 5;
@@ -31,6 +34,7 @@ class Sparky : AnimatedGameObject
         hp = maxhp;
     }
 
+    /// <summary>Update sparky.</summary>
     public override void Update(GameTime gameTime)
     {
         if (!active)
@@ -63,20 +67,24 @@ class Sparky : AnimatedGameObject
         CheckCollisions();
     }
 
+    /// <summary>Draw sparky.</summary>
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         base.Draw(gameTime, spriteBatch);
 
+        // health bar
         if (visible && hp != maxhp)
             DrawingHelper.DrawStatusBar(spriteBatch, GlobalPosition - new Vector2(0, 200) - GameEnvironment.ActiveCamera.Position,
                                         new Vector2(100, 10), maxhp, hp,
                                         new Color(255 - (int)(255 * (float)hp / maxhp), (int)(255 * (float)hp / maxhp), 0));
     }
 
+    /// <summary>Check and handle the collisions.</summary>
     public void CheckCollisions()
     {
         Player player = GameWorld.Find("player") as Player;
 
+        // projectile collisions
         foreach (Projectile projectile in player.Projectiles)
             if (BoundingBox.Intersects(projectile.BoundingBox) && projectile.Active)
             {
@@ -90,6 +98,7 @@ class Sparky : AnimatedGameObject
                 }
             }
 
+        // player collisions
         if (CollidesWith(player) && idleTime <= 0.0f)
             player.LowerHP(2);
     }

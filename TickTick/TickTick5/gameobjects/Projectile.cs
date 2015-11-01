@@ -9,7 +9,7 @@ class Projectile : AnimatedGameObject
     
     /// <summary>Create a new projectile.</summary>
     /// <param name="playerposition">The position of the player.</param>
-    /// <param name="mirrored">Should the projectile go right?</param>
+    /// <param name="mirrored">Should the projectile go left?</param>
   public Projectile(Vector2 playerposition, bool mirrored) : base(0 , "", Backgroundlayer.foreground)
    
    

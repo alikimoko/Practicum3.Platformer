@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 
 class PlayerFollowingEnemy : PatrollingEnemy
 {
+    /// <summary>Update the follower.</summary>
     public override void Update(GameTime gameTime)
     {
         GameObjectList gameWorld = Root as GameObjectList;
