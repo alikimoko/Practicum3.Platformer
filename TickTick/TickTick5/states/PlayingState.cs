@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,6 +10,7 @@ class PlayingState : IGameLoopObject
     protected int currentLevelIndex;
     protected ContentManager Content;
 
+    /// <summary>Create the playing state.</summary>
     public PlayingState(ContentManager Content)
     {
         this.Content = Content;
@@ -19,20 +20,14 @@ class PlayingState : IGameLoopObject
         LoadLevelsStatus(Content.RootDirectory + "/Levels/levels_status.txt");
     }
 
+    /// <summary>Get the current level.</summary>
     public Level CurrentLevel
-    {
-        get
-        {
-            return levels[currentLevelIndex];
-        }
-    }
+    { get { return levels[currentLevelIndex]; } }
 
+    /// <summary>The index of the current level.</summary>
     public int CurrentLevelIndex
     {
-        get
-        {
-            return currentLevelIndex;
-        }
+        get { return currentLevelIndex; }
         set
         {
             if (value >= 0 && value < levels.Count)
@@ -43,19 +38,15 @@ class PlayingState : IGameLoopObject
         }
     }
 
+    /// <summary>Get the level list.</summary>
     public List<Level> Levels
-    {
-        get
-        {
-            return levels;
-        }
-    }
+    { get { return levels; } }
 
+    /// <summary>Handle the input for the current level.</summary>
     public virtual void HandleInput(InputHelper inputHelper)
-    {
-        CurrentLevel.HandleInput(inputHelper);
-    }
+    { CurrentLevel.HandleInput(inputHelper); }
 
+    /// <summary>Update the current level.</summary>
     public virtual void Update(GameTime gameTime)
     {
         CurrentLevel.Update(gameTime);
@@ -68,16 +59,15 @@ class PlayingState : IGameLoopObject
         }
     }
 
+    /// <summary>Draw the current level.</summary>
     public virtual void Draw(GameTime gameTime, SpriteBatch spriteBatch)
-    {
-        CurrentLevel.Draw(gameTime, spriteBatch);
-    }
+    { CurrentLevel.Draw(gameTime, spriteBatch); }
 
+    /// <summary>Reset the current level.</summary>
     public virtual void Reset()
-    {
-        CurrentLevel.Reset();
-    }
+    { CurrentLevel.Reset(); }
 
+    /// <summary>Go to the next level.</summary>
     public void NextLevel()
     {
         CurrentLevel.Reset();
@@ -92,12 +82,15 @@ class PlayingState : IGameLoopObject
         WriteLevelsStatus(Content.RootDirectory + "/Levels/levels_status.txt");
     }
 
+    /// <summary>Load all levels.</summary>
     public void LoadLevels()
     {
         for (int currLevel = 1; currLevel <= 11; currLevel++)
             levels.Add(new Level(currLevel));
     }
 
+    /// <summary>Load the level status.</summary>
+    /// <param name="path">The path to the level status file.</param>
     public void LoadLevelsStatus(string path)
     {
         List<string> textlines = new List<string>();
@@ -115,6 +108,8 @@ class PlayingState : IGameLoopObject
         fileReader.Close();
     }
 
+    /// <summary>Update the level status.</summary>
+    /// <param name="path">The path to the level status file.</param>
     public void WriteLevelsStatus(string path)
     {
         // write the lines

@@ -63,7 +63,7 @@ public class InputHelper
     /// <summary>Is the controler button pressed?</summary>
     /// <param name="b">The button to check.</param>
     public bool ControlerButtonPressed(Buttons b)
-    { return currentControlerState.IsButtonDown(b) && previousControlerState.IsButtonDown(b); }
+    { return currentControlerState.IsButtonDown(b) && previousControlerState.IsButtonUp(b); }
 
     /// <summary>Is the controler button bown?</summary>
     /// <param name="b">The button to check.</param>

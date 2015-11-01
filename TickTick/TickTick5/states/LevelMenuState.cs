@@ -5,6 +5,7 @@ class LevelMenuState : GameObjectList
 {
     protected Button backButton;
 
+    /// <summary>Create the level menu.</summary>
     public LevelMenuState()
     {
         PlayingState playingState = GameEnvironment.GameStateManager.GetGameState("playingState") as PlayingState;
@@ -12,7 +13,7 @@ class LevelMenuState : GameObjectList
 
         // add a background
         SpriteGameObject background = new SpriteGameObject("Backgrounds/spr_levelselect", 0, "background");
-        this.Add(background);
+        Add(background);
 
         // add the level buttons
         for (int i = 0; i < 11; i++)
@@ -21,15 +22,16 @@ class LevelMenuState : GameObjectList
             int column = i % 4;
             LevelButton level = new LevelButton(i + 1, levels[i], 1);
             level.Position = new Vector2(column * (level.Width + 20), row * (level.Height + 20)) + new Vector2(390, 180);
-            this.Add(level);
+            Add(level);
         }
 
         // add a back button
         backButton = new Button("Sprites/spr_button_back", 1);
         backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
-        this.Add(backButton);
+        Add(backButton);
     }
 
+    /// <summary>Get the selected level.</summary>
     public int LevelSelected
     {
         get
@@ -44,6 +46,7 @@ class LevelMenuState : GameObjectList
         }
     }
 
+    /// <summary>Handle user input.</summary>
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);

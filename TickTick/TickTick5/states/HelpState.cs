@@ -4,18 +4,20 @@ class HelpState : GameObjectList
 {
     protected Button backButton;
 
+    /// <summary>Create the help screen.</summary>
     public HelpState()
     {
         // add a background
         SpriteGameObject background = new SpriteGameObject("Backgrounds/spr_help", 0, "background");
-        this.Add(background);
+        Add(background);
 
         // add a back but.ton
         backButton = new Button("Sprites/spr_button_back", 1);
         backButton.Position = new Vector2((GameEnvironment.Screen.X - backButton.Width) / 2, 750);
-        this.Add(backButton);
+        Add(backButton);
     }
 
+    /// <summary>Check the back button.</summary>
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);

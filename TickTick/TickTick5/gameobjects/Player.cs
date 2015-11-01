@@ -15,6 +15,8 @@ partial class Player : AnimatedGameObject
     protected const int maxhp = 100;
     protected int hp;
     
+    /// <summary>Create a new player.</summary>
+    /// <param name="start">The players starting position.</param>
     public Player(Vector2 start) : base(2, "player", true)
     {
         LoadAnimation("Sprites/Player/spr_idle", "idle", true, 0.1f); 
@@ -28,6 +30,7 @@ partial class Player : AnimatedGameObject
         Reset();
     }
 
+    /// <summary>Reset the player.</summary>
     public override void Reset()
     {
         position = startPosition;
@@ -43,6 +46,7 @@ partial class Player : AnimatedGameObject
         hp = maxhp;
     }
 
+    /// <summary>Handle user input.</summary>
     public override void HandleInput(InputHelper inputHelper)
     {
         float walkingSpeed = 400;
@@ -64,6 +68,7 @@ partial class Player : AnimatedGameObject
             Shoot();
     }
 
+    /// <summary>Update the player.</summary>
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -95,6 +100,9 @@ partial class Player : AnimatedGameObject
         GameEnvironment.ActiveCamera.moveCamera(Position + Center);
     }
 
+    /// <summary>Draw the player and its life bar.</summary>
+    /// <param name="gameTime"></param>
+    /// <param name="spriteBatch"></param>
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         base.Draw(gameTime, spriteBatch);
@@ -105,6 +113,7 @@ partial class Player : AnimatedGameObject
                                         new Color(255 - (int)(255 * (float)hp / maxhp), (int)(255 * (float)hp / maxhp), 0));
     }
 
+    /// <summary>Make the player explode.</summary>
     public void Explode()
     {
         if (!isAlive || finished)
@@ -116,8 +125,12 @@ partial class Player : AnimatedGameObject
         PlayAnimation("explode");
     }
 
+    /// <summary>Lower the players health and check for death.</summary>
+    /// <param name="HP">The ammount of health points to decrease.</param>
     public void LowerHP(int HP)
     {
+        if (!isAlive || finished)
+            return;
         hp -= HP;
         if (hp <= 0)
         {
@@ -126,6 +139,8 @@ partial class Player : AnimatedGameObject
         }
     }
 
+    /// <summary>Theplayer dies.</summary>
+    /// <param name="falling">Did the player die by falling out of the level?</param>
     public void Die(bool falling)
     {
         if (!isAlive || finished)
