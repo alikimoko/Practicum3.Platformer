@@ -26,12 +26,9 @@ class Sparky : AnimatedGameObject
         position.Y = initialY;
         yoffset = 120;
         velocity = Vector2.Zero;
-        if (hp <= 0)
-        {
-            active = true;
-            visible = true;
-            hp = maxhp;
-        }
+        active = true;
+        visible = true;
+        hp = maxhp;
     }
 
     public override void Update(GameTime gameTime)
