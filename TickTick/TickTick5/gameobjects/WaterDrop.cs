@@ -1,13 +1,14 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
 class WaterDrop : SpriteGameObject
 {
     protected float bounce;
 
+    /// <summary>Create the water drop.</summary>
     public WaterDrop(int layer=0, string id="") : base("Sprites/spr_water", layer, id, 0, true) { }
 
+    /// <summary>Update the water drop.</summary>
     public override void Update(GameTime gameTime)
     {
         double t = gameTime.TotalGameTime.TotalSeconds * 3.0f + Position.X;

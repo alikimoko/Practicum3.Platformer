@@ -8,6 +8,7 @@ partial class Level : GameObjectList
     private string path;
     private int cellWidth;
     private int cellHeight;
+
     /// <summary>Load the level.</summary>
     public void LoadTiles(string path)
     {

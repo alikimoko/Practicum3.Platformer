@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 partial class Level : GameObjectList
 {
-
+    /// <summary>Handle the inputof the level objects.</summary>
     public override void HandleInput(InputHelper inputHelper)
     {
         base.HandleInput(inputHelper);
@@ -14,6 +14,7 @@ partial class Level : GameObjectList
         }      
     }
 
+    /// <summary>Update the level objects.</summary>
     public override void Update(GameTime gameTime)
     {
         base.Update(gameTime);
@@ -44,6 +45,7 @@ partial class Level : GameObjectList
 
     }
 
+    /// <summary>Draw the level objects.</summary>
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         base.Draw(gameTime, spriteBatch);
@@ -52,6 +54,7 @@ partial class Level : GameObjectList
             projectile.Draw(gameTime, spriteBatch);
     }
 
+    /// <summary>Reset the level objects.</summary>
     public override void Reset()
     {
         base.Reset();
@@ -59,15 +62,20 @@ partial class Level : GameObjectList
         hintTimer.StartVisible();
     }
 
-    public int activeProjectiles()
+    /// <summary>Get the number of active projectiles.</summary>
+    public int ActiveProjectiles
     {
-        int num = 0;
-        foreach (Projectile projectile in projectiles)
-            if (projectile.Active)
-                num++;
-        return num;
+        get
+        {
+            int num = 0;
+            foreach (Projectile projectile in projectiles)
+                if (projectile.Active)
+                    num++;
+            return num;
+        }
     }
 
+    /// <summary>Match finder for unactive projectiles.</summary>
     private bool unActiveProjectile(Projectile obj)
     { return !obj.Active; }
 }

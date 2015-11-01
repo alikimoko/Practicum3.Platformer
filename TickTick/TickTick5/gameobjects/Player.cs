@@ -183,7 +183,7 @@ partial class Player : AnimatedGameObject
     public void Shoot()
     {
         Level level = parent as Level;
-        if (level.activeProjectiles() < 5)
+        if (level.ActiveProjectiles < 5)
         {
             Projectile projectile = new Projectile(position, Mirror);
             Projectiles.Add(projectile);

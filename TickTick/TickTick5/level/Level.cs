@@ -10,6 +10,8 @@ partial class Level : GameObjectList
 
     protected List<Projectile> projectiles = new List<Projectile>();
 
+    /// <summary>Create the level.</summary>
+    /// <param name="levelIndex">The index of the level.</param>
     public Level(int levelIndex)
     {
         // load the backgrounds
@@ -46,6 +48,7 @@ partial class Level : GameObjectList
         
     }
 
+    /// <summary>Has the level been completed?</summary>
     public bool Completed
     {
         get
@@ -62,6 +65,7 @@ partial class Level : GameObjectList
         }
     }
 
+    /// <summary>Isthe player game over?</summary>
     public bool GameOver
     {
         get
@@ -72,27 +76,33 @@ partial class Level : GameObjectList
         }
     }
 
+    /// <summary>Is the level locked?</summary>
     public bool Locked
     {
         get { return locked; }
         set { locked = value; }
     }
 
+    /// <summary>Is the level solved?</summary>
     public bool Solved
     {
         get { return solved; }
         set { solved = value; }
     }
 
+    /// <summary>Get the camera for this level.</summary>
     public Camera LevelCamera
     { get { return levelCamera; } }
 
+    /// <summary>Get the width of the level in pixels.</summary>
     public int Width
     { get { return width * 72; } }
 
+    /// <summary>Get the height of the level in pixels.</summary>
     public int Height
     { get { return height * 55; } }
 
+    /// <summary>Get all current projectiles.</summary>
     public List<Projectile> Projectiles
     { get { return projectiles; } }
 }
