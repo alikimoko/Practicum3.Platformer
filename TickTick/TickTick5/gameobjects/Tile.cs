@@ -14,14 +14,17 @@ class Tile : SpriteGameObject
     protected bool hot;
     protected bool ice;
 
-    public Tile(string assetname = "", TileType tp = TileType.Background, int layer = 0, string id = "")
-        : base(assetname, layer, id, 0, Backgroundlayer.foreground)
+    /// <summary>Create a new tile.</summary>
+    /// <param name="assetname">The tile its sprite.</param>
+    /// <param name="tp">The type thistile is.</param>
+    public Tile(string assetname = "", TileType tp = TileType.Background, int layer = 0, string id = "") : base(assetname, layer, id, 0, Backgroundlayer.foreground)
     {
         type = tp;
         hot = false;
         ice = false;
     }
 
+    /// <summary>Draw the tile.</summary>
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         if (type == TileType.Background)
@@ -29,17 +32,18 @@ class Tile : SpriteGameObject
         base.Draw(gameTime, spriteBatch);
     }
 
+    /// <summary>Get the tile type.</summary>
     public TileType TileType
-    {
-        get { return type; }
-    }
+    { get { return type; } }
 
+    /// <summary>Is this tile hot?</summary>
     public bool Hot
     {
         get { return hot; }
         set { hot = value; }
     }
 
+    /// <summary>Is this tile made of ice?</summary>
     public bool Ice
     {
         get { return ice; }

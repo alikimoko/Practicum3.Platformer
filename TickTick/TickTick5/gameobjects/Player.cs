@@ -101,8 +101,6 @@ partial class Player : AnimatedGameObject
     }
 
     /// <summary>Draw the player and its life bar.</summary>
-    /// <param name="gameTime"></param>
-    /// <param name="spriteBatch"></param>
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         base.Draw(gameTime, spriteBatch);
@@ -157,21 +155,25 @@ partial class Player : AnimatedGameObject
         PlayAnimation("die");
     }
 
+    /// <summary>Isthe player alive?</summary>
     public bool IsAlive
     { get { return isAlive; } }
 
+    /// <summary>Did the player finish the level?</summary>
     public bool Finished
     { get { return finished; } }
 
+    /// <summary>Get the current projectiles.</summary>
     public List<Projectile> Projectiles
     {
         get
         {
             Level level = parent as Level;
-            return level.Projectiles;
+            return level.Projectiles; // player is easier to find for objects
         }
     }
 
+    /// <summary>Finish the level.</summary>
     public void LevelFinished()
     {
         finished = true;
@@ -180,6 +182,7 @@ partial class Player : AnimatedGameObject
         GameEnvironment.AssetManager.PlaySound("Sounds/snd_player_won");
     }
 
+    /// <summary>Shoot a projectile.</summary>
     public void Shoot()
     {
         Level level = parent as Level;

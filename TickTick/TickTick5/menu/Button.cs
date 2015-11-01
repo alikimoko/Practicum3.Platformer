@@ -6,8 +6,7 @@
     /// <param name="imageAsset">The buton sprite.</param>
     /// <param name="layer">The layer the button is in.</param>
     /// <param name="id">The ID to reference the button.</param>
-    public Button(string imageAsset, int layer = 0, string id = "")
-        : base(imageAsset, layer, id)
+    public Button(string imageAsset, int layer = 0, string id = "") : base(imageAsset, layer, id)
     { pressed = false; }
 
     /// <summary>Check if the button is pressed.</summary>
