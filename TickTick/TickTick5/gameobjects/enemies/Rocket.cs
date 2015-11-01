@@ -93,12 +93,13 @@ class Rocket : AnimatedGameObject
 
         if (CollidesWith(player))
         {
-            if (!(player.BoundingBox.Y < BoundingBox.Y))
+            if (player.BoundingBox.Y + Height * 0.3 < BoundingBox.Y && player.Velocity.Y>0)
+            { velocity.Y = 600; player.Jump(); }
+            else
             {
                 player.LowerHP(50);
                 Reset();
             }
-            else { velocity.Y = 600; player.Jump(); }
             
         }
     }
