@@ -13,5 +13,5 @@ W.W.............W..Rr.........................W......
 ---............-----..........................W......
 X.1..W..W..W..W.W.W..W.W.W.W.W.W.W.W.W.W.W.W.W.W.W.W.
 ###..#..#..#..#######################################
-Avoid the rockets, you can jump through some of the tiles.
+Avoid the rockets or jump on them.
 80
