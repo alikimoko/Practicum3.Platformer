@@ -3,10 +3,11 @@ using Microsoft.Xna.Framework.Graphics;
 
 public class SpriteGameObject : GameObject
 {
+    public enum Backgroundlayer { solid = 0 , foreground = 1, middle = 10 , background = 25 };
+
     protected SpriteSheet sprite;
     protected Vector2 origin;
     protected bool moving;
-    public enum Backgroundlayer { solid = 0 , foreground = 1, middle = 10 , background = 25 };
     protected Backgroundlayer paralax;
 
     /// <summary>Create a new sprite game object.</summary>

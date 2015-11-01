@@ -10,7 +10,7 @@ class Clouds : GameObjectList
     {
         this.level = level;
         
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 10; i++)
         {
             SpriteGameObject cloud = new SpriteGameObject("Backgrounds/spr_cloud_" + (GameEnvironment.Random.Next(5) + 1), 2, "", 0, SpriteGameObject.Backgroundlayer.middle);
             cloud.Position = new Vector2((float)GameEnvironment.Random.NextDouble() * level.Width - cloud.Width / 2, (float)GameEnvironment.Random.NextDouble() * level.Height - cloud.Height / 2);
@@ -26,10 +26,10 @@ class Clouds : GameObjectList
         foreach (GameObject obj in gameObjects)
         {
             SpriteGameObject c = obj as SpriteGameObject;
-            if ((c.Velocity.X < 0 && c.Position.X + c.Width < 0) || (c.Velocity.X > 0 && c.Position.X > GameEnvironment.Screen.X))
+            if ((c.Velocity.X < 0 && c.Position.X + c.Width < 0) || (c.Velocity.X > 0 && c.Position.X > level.Width))
             {
                 Remove(c);
-                SpriteGameObject cloud = new SpriteGameObject("Backgrounds/spr_cloud_" + (GameEnvironment.Random.Next(5) + 1));
+                SpriteGameObject cloud = new SpriteGameObject("Backgrounds/spr_cloud_" + (GameEnvironment.Random.Next(5) + 1), 0, "", 0, SpriteGameObject.Backgroundlayer.middle);
                 cloud.Velocity = new Vector2((float)((GameEnvironment.Random.NextDouble() * 2) - 1) * 20, 0);
                 float cloudHeight = (float)GameEnvironment.Random.NextDouble() * level.Height - cloud.Height / 2;
                 if (cloud.Velocity.X < 0)
